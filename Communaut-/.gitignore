@@ -6,6 +6,8 @@ Thumbs.db
 
 node_modules/
 dist/
+.m2/
+.mvn/
 
 target/
 build/
@@ -13,3 +15,4 @@ out/
 
 *.log
 *.class
+*.iml

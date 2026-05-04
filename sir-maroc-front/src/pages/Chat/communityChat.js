@@ -1,5 +1,5 @@
-import { API_BASE_URL, COMMUNITY_CHAT_API_URL } from "../config/env";
-import { getToken } from "../utils/auth";
+import { API_BASE_URL, COMMUNITY_CHAT_API_URL } from "../../config/env";
+import { getToken } from "../../utils/auth";
 
 async function readErrorMessage(response) {
   try {

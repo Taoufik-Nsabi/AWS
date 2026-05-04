@@ -229,7 +229,7 @@ services:
 
   community-service:
     build:
-      context: ./Communaut-/community-service
+      context: ./Communaut-
       dockerfile: Dockerfile
     container_name: projects-community-service-1
     restart: unless-stopped

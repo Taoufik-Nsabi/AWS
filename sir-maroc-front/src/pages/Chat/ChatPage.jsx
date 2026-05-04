@@ -7,7 +7,7 @@ import {
   fetchChatRoomsOverview,
   sendSocketChatMessage,
   sendChatMessage,
-} from "../../lib/communityChat";
+} from "./communityChat";
 import { getCurrentUser, logout } from "../../utils/auth";
 import "../../styles/Chat/ChatPage.css";
 
