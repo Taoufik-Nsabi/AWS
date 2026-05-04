@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Layout from "../components/Layout";
 import AdminLayout from "../components/admin/AdminLayout";
+import RequireAuth from "../components/RequireAuth";
 
 // Pages Client
 import Home from "../pages/HomePage";
@@ -34,6 +35,7 @@ import LieuDetails from "../pages/Profile/LieuDetails";
 import LieuUpdate from "../pages/Profile/LieuUpdate"; 
 
 import TourismPage from "../pages/Tourism/TourismPage";
+import ChatPage from "../pages/Chat/ChatPage";
 
 
 // Pages Admin
@@ -79,6 +81,14 @@ export default function AppRouter() {
           <Route path="/vols" element={<VolsPage />} />
           <Route path="/matchs" element={<MatchsPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route
+            path="/chat"
+            element={
+              <RequireAuth>
+                <ChatPage />
+              </RequireAuth>
+            }
+          />
 
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/mes-lieux" element={<MesLieux />} />

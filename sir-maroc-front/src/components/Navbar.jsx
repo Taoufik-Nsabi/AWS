@@ -53,6 +53,8 @@ export default function Navbar({ scrolled }) {
             </div>
           </div>
 
+          <Link to="/chat" className="nav-link">Chat</Link>
+
           <Link to="/contact" className="nav-link">Contact</Link>
 
           {!auth ? (
