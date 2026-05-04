@@ -1,0 +1,181 @@
+/* --- WRAPPER (Fond Zellij inchangé) --- */
+.profile-auth-wrapper {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fdfaf5; 
+  padding: 120px 20px 60px 20px;
+  overflow: hidden; 
+}
+
+.profile-auth-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url('../../assets/images/zalij.avif');
+  background-size: cover; 
+  opacity: 0.12;
+  z-index: 0;
+}
+
+/* --- CONTAINER HORIZONTAL --- */
+.profile-container-horizontal {
+  position: relative;
+  z-index: 1; 
+  background: white;
+  width: 100%;
+  max-width: 900px; /* Largeur augmentée pour le mode horizontal */
+  display: flex; /* Active le mode côte à côte */
+  border-radius: 4px;
+  box-shadow: 0 25px 70px rgba(0,0,0,0.15);
+  border-top: 5px solid #3d0a0c;
+}
+
+/* --- SIDEBAR GAUCHE (Identité) --- */
+.profile-sidebar-brand {
+  flex: 1;
+  background: #fcfaf7;
+  padding: 50px 30px;
+  text-align: center;
+  border-right: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-avatar-circle {
+  width: 90px;
+  height: 90px;
+  background: #3d0a0c;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 20px rgba(61, 10, 12, 0.2);
+}
+
+.profile-logo-text {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  letter-spacing: 3px;
+  font-size: 1.4rem;
+  color: #3d0a0c;
+  text-transform: uppercase;
+}
+
+.profile-line {
+  width: 40px;
+  height: 2px;
+  background: #0f5a43;
+  margin: 15px auto;
+}
+
+.profile-subtitle {
+  font-size: 0.85rem;
+  color: #888;
+  font-style: italic;
+}
+
+.profile-meta {
+  margin-top: 20px;
+  font-size: 0.75rem;
+  color: #aaa;
+  text-transform: uppercase;
+}
+
+/* --- CONTENU DROITE (Formulaire en Grille) --- */
+.profile-form-content {
+  flex: 2;
+  padding: 50px;
+}
+
+.profile-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* DEUX COLONNES */
+  gap: 25px;
+}
+
+.profile-input-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+/* Faire en sorte que certains champs puissent prendre toute la largeur si besoin */
+/* .profile-input-group.full { grid-column: span 2; } */
+
+.profile-input-group label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #3d0a0c;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.profile-input-group input {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  background: #fcfcfc;
+  font-family: 'Montserrat', sans-serif;
+  transition: 0.3s;
+}
+
+.profile-input-group input:focus {
+  outline: none;
+  border-color: #0f5a43;
+  background: white;
+}
+
+/* Zone du bouton (Prend toute la largeur de la grille) */
+.profile-actions-full {
+  grid-column: span 2;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.profile-save-btn {
+  width: 100%;
+  background: #3d0a0c;
+  color: white;
+  padding: 16px;
+  border: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.profile-save-btn:hover {
+  background: #0f5a43;
+  transform: translateY(-2px);
+}
+
+.profile-back-link {
+  display: block;
+  margin-top: 20px;
+  font-size: 0.85rem;
+  color: #888;
+  text-decoration: none;
+}
+
+/* Responsivité : Repasser en vertical sur mobile */
+@media (max-width: 768px) {
+  .profile-container-horizontal {
+    flex-direction: column;
+  }
+  .profile-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .profile-actions-full {
+    grid-column: span 1;
+  }
+}

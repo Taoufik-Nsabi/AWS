@@ -1,0 +1,142 @@
+
+.contact-section {
+  padding: 100px 0;
+  background: var(--maroc-bg, #fdfaf5);
+  position: relative;
+  overflow: hidden;
+  width: 100%; 
+}
+
+/* Motif Zellij */
+.contact-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("https://www.transparenttextures.com/patterns/az-subtle.png");
+  opacity: 0.35; 
+  z-index: 1;
+  pointer-events: none;
+}
+
+.contact-container {
+  max-width: 1300px; /* Largeur maximale pour le contenu */
+  width: 95%;       
+  margin: 0 auto;
+  display: flex;
+  gap: 40px;
+  align-items: stretch;
+  position: relative;
+  z-index: 2;
+  
+  /* CADRE EXTÉRIEUR QUI ENGLOBE TOUT (Carte + Formulaire) */
+  background: white;
+  padding: 40px;
+  border-radius: 40px;
+  border: 2px solid var(--maroc-bordeaux, #3d0a0c);
+}
+
+/* --- STYLE DE LA CARTE --- */
+.contact-map-container {
+  flex: 1;
+  min-height: 500px;
+  border-radius: 25px;
+  overflow: hidden;
+  border: 1px solid rgba(61, 10, 12, 0.1);
+  filter: contrast(1.05);
+}
+
+/* --- STYLE DU FORMULAIRE --- */
+.contact-form-side {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+}
+
+.contact-header {
+  margin-bottom: 30px;
+}
+
+/* Écriture en VERT */
+.contact-header .section-title-maroc {
+  color: var(--maroc-vert, #0f5a43) !important;
+  font-size: 3rem;
+  margin: 0 0 10px 0;
+  text-align: left;
+}
+
+/* Écriture en BORDEAUX */
+.contact-header p {
+  color: var(--maroc-bordeaux, #3d0a0c); 
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.contact-form-luxury {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-form-luxury .form-row {
+  display: flex;
+  gap: 20px;
+}
+
+/* Champs de saisie : Écriture VERT, Bordures BORDEAUX */
+.contact-form-luxury input, 
+.contact-form-luxury textarea {
+  width: 100%;
+  padding: 18px;
+  background: #fdfdfd;
+  border: 1.5px solid rgba(61, 10, 12, 0.2); 
+  color: var(--maroc-vert, #0f5a43);        
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.contact-form-luxury input:focus, 
+.contact-form-luxury textarea:focus {
+  outline: none;
+  border-color: var(--maroc-vert, #0f5a43);
+  background: white;
+}
+
+/* Bouton Royal */
+.contact-form-luxury .btn-royal {
+  align-self: flex-start;
+  margin-top: 10px;
+  background: var(--maroc-bordeaux, #3d0a0c); 
+}
+
+.contact-form-luxury .btn-royal:hover {
+  background: var(--maroc-vert, #0f5a43);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1024px) {
+  .contact-container {
+    flex-direction: column;
+    padding: 30px;
+    width: 90%;
+  }
+  
+  .contact-map-container {
+    min-height: 350px;
+    order: 2;
+  }
+  
+  .contact-header .section-title-maroc,
+  .contact-header p {
+    text-align: center;
+  }
+
+  .contact-form-luxury .form-row {
+    flex-direction: column;
+  }
+}

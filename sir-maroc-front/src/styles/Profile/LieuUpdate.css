@@ -1,0 +1,42 @@
+.update-container {
+  position: relative;
+  z-index: 1;
+  background: white;
+  width: 100%;
+  max-width: 800px;
+  padding: 50px;
+  border-radius: 4px;
+  box-shadow: 0 25px 70px rgba(0,0,0,0.15);
+  border-top: 5px solid #0f5a43; /* Vert émeraude pour différencier du rouge profil */
+}
+
+.update-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.update-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.profile-input-group.full {
+  grid-column: span 2;
+}
+
+.profile-input-group textarea {
+  padding: 12px;
+  border: 1px solid #ddd;
+  background: #fcfcfc;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.update-container .profile-save-btn {
+  background: #0f5a43; /* Vert pour l'action de succès */
+}
+
+.update-container .profile-save-btn:hover {
+  background: #3d0a0c; /* Rouge au survol */
+}

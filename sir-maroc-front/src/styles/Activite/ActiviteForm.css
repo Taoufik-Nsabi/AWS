@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@300;400;500;600&display=swap');
+
+/* ========== VARIABLES COMPLÉMENTAIRES ========== */
+:root {
+  --bordeaux: #4a0404;
+  --or-luxe: #d4af37;
+  --vert-profond: #0a3d2e;
+  --blanc-cassé: #faf9f6;
+  --shadow-luxe: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+/* ========== WRAPPER AVEC FOND ZELLIJ ========== */
+.hebergement-form-wrapper {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  background: var(--blanc-cassé);
+  padding-bottom: 50px;
+}
+
+.hebergement-zellij-bg {
+  position: fixed;
+  inset: 0;
+  background-image: url('../../assets/images/zalij.avif'); /* Vérifie bien le chemin */
+  background-size: cover;
+  background-attachment: fixed;
+  opacity: 0.15; /* Très léger pour ne pas gêner la lecture */
+  z-index: 0;
+}
+
+.hebergement-zellij-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(250, 249, 246, 0.9), rgba(255, 255, 255, 0.8));
+  z-index: 1;
+}
+
+/* ========== CONTAINER DU FORMULAIRE ========== */
+.hebergement-form-container {
+  max-width: 900px;
+  margin: 150px auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* ========== HEADER DU FORMULAIRE ========== */
+.form-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.form-header-icon {
+  font-size: 3.5rem;
+  display: block;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 5px 15px rgba(212, 175, 55, 0.3));
+}
+
+.form-header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem;
+  color: var(--bordeaux);
+  margin-bottom: 10px;
+}
+
+.form-header p {
+  color: #666;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+/* ========== SECTIONS (CARTES) ========== */
+.form-section {
+  background: white;
+  border-radius: 30px; /* Angles cerclés */
+  padding: 35px;
+  margin-bottom: 30px;
+  box-shadow: var(--shadow-luxe);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.form-section:hover {
+  transform: translateY(-5px);
+  border-color: var(--or-luxe);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.section-number {
+  background: var(--bordeaux);
+  color: var(--or-luxe);
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  border: 1px solid var(--or-luxe);
+}
+
+.section-title h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  color: var(--bordeaux);
+}
+
+/* ========== INPUTS ET SELECTS (ANGLES CERCLES) ========== */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group.full-width {
+  grid-column: span 2;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: #444;
+  margin-left: 10px;
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+  width: 100%;
+  padding: 14px 20px;
+  border: 1.5px solid #eee;
+  border-radius: 50px; /* Style circulaire */
+  font-family: inherit;
+  transition: all 0.3s ease;
+  background: #fdfdfd;
+}
+
+.form-group textarea {
+  border-radius: 20px; /* Un peu moins arrondi pour le texte */
+}
+
+.form-group input:focus, 
+.form-group select:focus {
+  outline: none;
+  border-color: var(--or-luxe);
+  background: white;
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.1);
+}
+
+/* ========== UPLOAD PHOTO ========== */
+.image-upload-area {
+  border: 2px dashed var(--or-luxe);
+  border-radius: 25px;
+  padding: 40px;
+  text-align: center;
+  background: rgba(212, 175, 55, 0.03);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.image-upload-area:hover {
+  background: rgba(212, 175, 55, 0.08);
+}
+
+.upload-label i {
+  font-size: 2.5rem;
+  color: var(--or-luxe);
+  margin-bottom: 10px;
+}
+
+.image-previews {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.preview-item {
+  width: 100px;
+  height: 100px;
+  border-radius: 15px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid var(--or-luxe);
+}
+
+.preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.remove-image {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: var(--bordeaux);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* ========== BOUTONS ACTION ========== */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.btn-cancel {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 14px 40px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.btn-submit {
+  background: linear-gradient(135deg, var(--bordeaux), var(--vert-profond));
+  color: white;
+  border: none;
+  padding: 14px 50px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+}
+
+.btn-submit:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 25px rgba(212, 175, 55, 0.3);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  .form-header h1 {
+    font-size: 2rem;
+  }
+}

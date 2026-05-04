@@ -1,0 +1,243 @@
+/* --- CONFIGURATION DES POLICES --- */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,500&family=Montserrat:wght@300;400;700&display=swap');
+
+:root {
+  --maroc-bordeaux: #3d0a0c;
+  --maroc-or: #d4af37;
+  --maroc-vert: #0f5a43;
+  --maroc-bg: #fdfaf5;
+}
+
+/* OVERLAY (Fond flouté derrière la carte) */
+.hebergement-detail-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  padding: 20px;
+}
+
+/* CARTE MODALE */
+.detail-card-modern {
+  background: var(--maroc-bg);
+  width: 100%;
+  max-width: 700px; 
+  max-height: 90vh;
+  border-radius: 35px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+  border: 2px solid var(--maroc-or);
+  animation: modalSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.detail-content-scroll {
+  overflow-y: auto;
+  max-height: 90vh;
+  scrollbar-width: thin;
+  scrollbar-color: var(--maroc-or) transparent;
+}
+
+/* VISUEL (Image & Bouton Fermer) */
+.detail-visual {
+  width: 100%;
+  height: 400px;
+  position: relative;
+}
+
+.detail-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.close-btn-modern {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  background: white;
+  border-radius: 50%;
+  border: none;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  font-size: 1.5rem;
+  color: var(--maroc-bordeaux);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s ease;
+}
+
+.close-btn-modern:hover {
+  transform: rotate(90deg) scale(1.1);
+}
+
+/* BANDEAU ROYAL */
+.detail-header-royal {
+  height: 50px;
+  background: linear-gradient(90deg, var(--maroc-bordeaux), #631215);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 3px solid var(--maroc-or);
+}
+
+.royal-badge {
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 5px;
+  font-weight: 700;
+  color: var(--maroc-or);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+/* INFOS TEXTUELLES */
+.detail-text-info {
+  padding: 40px 30px;
+  text-align: center;
+}
+
+.detail-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  color: var(--maroc-vert);
+  margin-bottom: 5px;
+  line-height: 1;
+}
+
+.location-bar {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--maroc-bordeaux);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.location-bar i {
+  color: var(--maroc-or);
+  margin-right: 8px;
+}
+
+/* CADRE DESCRIPTION (Récit Historique) */
+.detail-description-box {
+  margin: 0 auto;
+  padding: 35px;
+  background: white;
+  border-radius: 25px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  max-width: 90%;
+}
+
+.detail-description-box h3 {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--maroc-or);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.detail-description-box p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  font-style: italic;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+/* ZONE PRIX & LIEN WEB */
+.contact-price-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+.detail-price {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  color: var(--maroc-bordeaux);
+  font-size: 1.4rem;
+}
+
+.detail-website {
+  color: var(--maroc-vert);
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-bottom: 2px solid var(--maroc-or);
+  padding-bottom: 2px;
+  transition: 0.3s;
+}
+
+.detail-website:hover {
+  color: var(--maroc-or);
+  border-color: var(--maroc-vert);
+}
+
+/* SECTION AVIS */
+.reviews-section-modern {
+  padding: 0 30px 40px 30px;
+}
+
+.reviews-section-modern h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  color: var(--maroc-vert);
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.modern-review-card {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  border-left: 6px solid var(--maroc-or);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.modern-review-card strong {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  color: var(--maroc-bordeaux);
+}
+
+.modern-review-card p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  color: #555;
+  margin-top: 8px;
+}
+
+/* ANIMATIONS */
+@keyframes modalSlideUp {
+  from { opacity: 0; transform: translateY(50px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+
+@media (max-width: 600px) {
+  .detail-card-modern {
+    max-height: 95vh;
+    border-radius: 25px;
+  }
+  .detail-visual { height: 250px; }
+  .detail-title { font-size: 2.2rem; }
+}

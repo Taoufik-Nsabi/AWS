@@ -1,0 +1,159 @@
+/* --- FOOTER MAROCAIN LUXE --- */
+.footer-v2 {
+  /* Dégradé allant du noir vers un bordeaux très profond */
+  background: linear-gradient(135deg, #121212 0%, #3d0a0c 100%);
+  color: #faf9f6;
+  padding: 80px 0 40px;
+  position: relative;
+  overflow: hidden;
+  /* Bordure supérieure en Vert Émeraude */
+  border-top: 3px solid #0f5a43;
+}
+
+/* Motif Zellij en arrière-plan du footer */
+.footer-v2::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('https://www.transparenttextures.com/patterns/arabesque-outlines.png');
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.footer-v2__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.footer-v2__top {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 60px;
+}
+
+.footer-v2__logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  /* Logo en Vert Émeraude */
+  color: #0f5a43;
+  border: 2px solid #0f5a43;
+  padding: 10px 20px;
+  letter-spacing: 4px;
+}
+
+.footer-v2__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 40px;
+}
+
+.footer-v2__contact {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-v2__contactIcon {
+  font-size: 2rem;
+  /* Icône en Vert Émeraude */
+  color: #0f5a43;
+}
+
+.footer-v2__label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  color: #bbb;
+  margin: 0 0 5px 0;
+}
+
+.footer-v2__email {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  color: #fff;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-v2__email:hover {
+  /* Hover en Vert Émeraude */
+  color: #0f5a43;
+}
+
+.footer-v2__meta {
+  text-align: right;
+}
+
+.footer-v2__copy {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin-bottom: 15px;
+}
+
+.footer-v2__links {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+  font-size: 0.8rem;
+}
+
+.footer-v2__links a {
+  color: #eee;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-v2__links a:hover {
+  color: #0f5a43;
+}
+
+.footer-v2__links span {
+  color: #666;
+}
+
+/* Bouton Retour en haut en Vert Émeraude */
+.footer-v2__scrollTop {
+  position: absolute;
+  right: 20px;
+  top: -25px;
+  background: #0f5a43;
+  color: #ffffff;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+  transition: 0.3s;
+}
+
+.footer-v2__scrollTop:hover {
+  transform: translateY(-5px);
+  background: #ffffff;
+  color: #0f5a43;
+}
+
+@media (max-width: 768px) {
+  .footer-v2__bottom {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .footer-v2__meta {
+    text-align: center;
+  }
+  .footer-v2__links {
+    justify-content: center;
+  }
+}

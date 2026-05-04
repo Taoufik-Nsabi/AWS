@@ -1,0 +1,438 @@
+/* -- IMPORTATION DES POLICES -- */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,500&family=Montserrat:wght@300;400;700&display=swap');
+
+:root {
+  --rouge-maroc: #A52A2A;
+  --vert-maroc: #0F6A4B;
+  --or-maroc: #D4AF37;
+  --creme-medina: #FAF9F6;
+  --noir-charbon: #1A1A1A;
+  --gris-elegant: #4A4A4A;
+}
+
+/* OVERLAY */
+.restaurant-detail-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(26, 26, 26, 0.85);
+  backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  padding: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* CARTE */
+.detail-card-restaurant {
+  background: var(--creme-medina);
+  width: 100%;
+  max-width: 680px;
+  max-height: 90vh;
+  border-radius: 30px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  animation: modalEnter 0.5s ease-out;
+}
+
+.detail-content-scroll {
+  overflow-y: auto;
+  max-height: 90vh;
+  scrollbar-width: thin;
+}
+
+.detail-content-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.detail-content-scroll::-webkit-scrollbar-track {
+  background: var(--creme-medina);
+}
+
+.detail-content-scroll::-webkit-scrollbar-thumb {
+  background: var(--or-maroc);
+  border-radius: 10px;
+}
+
+/* IMAGE & BOUTON FERMER */
+.detail-visual {
+  width: 100%;
+  height: 320px;
+  position: relative;
+  overflow: hidden;
+}
+
+.detail-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.detail-card-restaurant:hover .detail-visual img {
+  transform: scale(1.05);
+}
+
+.close-btn-restaurant {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--creme-medina);
+  border-radius: 50%;
+  border: none;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  font-size: 1.3rem;
+  color: var(--rouge-maroc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.close-btn-restaurant:hover {
+  transform: rotate(90deg);
+  background: var(--rouge-maroc);
+  color: var(--creme-medina);
+}
+
+/* Badge Michelin */
+.michelin-badge-detail {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: linear-gradient(135deg, var(--or-maroc), #b8860b);
+  padding: 6px 15px;
+  border-radius: 30px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--noir-charbon);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 10;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.michelin-badge-detail i {
+  font-size: 0.8rem;
+}
+
+/* HEADER */
+.detail-header-royal {
+  height: 50px;
+  background: linear-gradient(135deg, var(--rouge-maroc) 0%, #6b1a1a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid var(--or-maroc);
+}
+
+.royal-badge {
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 5px;
+  font-weight: 700;
+  color: var(--or-maroc);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+/* INFOS TEXTUELLES */
+.detail-text-info {
+  padding: 30px;
+  text-align: center;
+}
+
+.detail-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  color: var(--rouge-maroc);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.location-bar {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--gris-elegant);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.location-bar i {
+  color: var(--or-maroc);
+  margin-right: 6px;
+}
+
+/* Étoiles de notation */
+.detail-rating {
+  margin-bottom: 25px;
+}
+
+.detail-rating i {
+  color: #ddd;
+  font-size: 1rem;
+  margin: 0 2px;
+}
+
+.detail-rating i.active {
+  color: var(--or-maroc);
+}
+
+.rating-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  color: var(--gris-elegant);
+  margin-left: 10px;
+}
+
+/* BLOC DE DÉTAILS */
+.detail-description-box {
+  margin: 20px auto;
+  padding: 25px;
+  background: rgba(212, 175, 55, 0.06);
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  max-width: 95%;
+}
+
+.detail-description-box h3 {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--rouge-maroc);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.8rem;
+  margin-bottom: 15px;
+}
+
+.detail-description-box p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  font-style: italic;
+  color: var(--noir-charbon);
+  margin-bottom: 20px;
+}
+
+/* Infos supplémentaires */
+.chef-info,
+.speciality-info,
+.hours-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  color: var(--gris-elegant);
+  margin-bottom: 12px;
+}
+
+.chef-info i,
+.speciality-info i,
+.hours-info i {
+  color: var(--or-maroc);
+  width: 25px;
+}
+
+/* CONTACT & PRIX */
+.contact-price-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+  padding-top: 20px;
+  margin-top: 10px;
+}
+
+.detail-price {
+  font-weight: 700;
+  color: var(--vert-maroc);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.3rem;
+}
+
+.detail-price i {
+  color: var(--or-maroc);
+  margin-right: 8px;
+}
+
+.detail-phone {
+  color: var(--gris-elegant);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.detail-phone i {
+  color: var(--or-maroc);
+  margin-right: 8px;
+}
+
+.detail-website {
+  color: var(--or-maroc);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  border-bottom: 1px solid var(--or-maroc);
+  transition: all 0.3s ease;
+}
+
+.detail-website:hover {
+  color: var(--rouge-maroc);
+  border-color: var(--rouge-maroc);
+}
+
+/* SECTION AVIS */
+.reviews-section-restaurant {
+  padding: 0 30px 20px 30px;
+  text-align: left;
+}
+
+.reviews-section-restaurant h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  color: var(--rouge-maroc);
+  border-bottom: 2px solid var(--or-maroc);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.modern-review-card {
+  background: white;
+  padding: 18px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #eee;
+  border-left: 4px solid var(--or-maroc);
+  transition: all 0.3s ease;
+}
+
+.modern-review-card:hover {
+  transform: translateX(5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+}
+
+.review-header strong {
+  color: var(--rouge-maroc);
+}
+
+.review-stars {
+  color: var(--or-maroc);
+  font-size: 0.8rem;
+}
+
+.review-comment {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: var(--gris-elegant);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.no-reviews {
+  text-align: center;
+  font-style: italic;
+  color: #999;
+  padding: 20px;
+}
+
+/* ANIMATION */
+@keyframes modalEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .detail-card-restaurant {
+    max-width: 95%;
+    max-height: 95vh;
+  }
+  
+  .detail-visual {
+    height: 250px;
+  }
+  
+  .detail-title {
+    font-size: 1.8rem;
+  }
+  
+  .detail-text-info {
+    padding: 20px;
+  }
+  
+  .detail-description-box {
+    padding: 18px;
+  }
+  
+  .detail-description-box p {
+    font-size: 1rem;
+  }
+  
+  .reviews-section-restaurant {
+    padding: 0 20px 20px 20px;
+  }
+  
+  .royal-badge {
+    letter-spacing: 3px;
+    font-size: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .detail-visual {
+    height: 200px;
+  }
+  
+  .detail-title {
+    font-size: 1.5rem;
+  }
+  
+  .close-btn-restaurant {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+  
+  .michelin-badge-detail {
+    padding: 4px 10px;
+    font-size: 0.6rem;
+  }
+  
+  .chef-info,
+  .speciality-info,
+  .hours-info {
+    font-size: 0.75rem;
+  }
+  
+  .detail-price {
+    font-size: 1.1rem;
+  }
+}

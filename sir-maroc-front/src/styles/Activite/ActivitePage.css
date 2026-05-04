@@ -1,0 +1,645 @@
+/* ============================================================
+   STYLE LUXE POUR ACTIVITEPAGE.JSX
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;500&display=swap');
+
+:root {
+    --bordeaux-luxe: #4a0404;
+    --or-luxe: #d4af37;
+    --or-clair: #f1dca7;
+    --blanc-pur: #ffffff;
+    --noir-profond: #121212;
+}
+
+.luxury-moroccan-activite {
+    background-color: #faf9f6;
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+}
+
+/* --- HERO SECTION --- */
+.hero-luxury-activite {
+    position: relative;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bordeaux-luxe);
+    overflow: hidden;
+    text-align: center;
+}
+
+.hebergment-hero-backdrop-activite {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../../assets/images/sports-tools.jpg'); /* Image de fond */
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3;
+    z-index: 0;
+    
+
+
+}
+
+/* --- HERO SECTION --- */
+.hero-luxury-activite {
+    position: relative;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--noir-profond); /* Fond sombre si l'image charge mal */
+    overflow: hidden;
+}
+
+.hebergment-hero-backdrop-activite {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Utilisation de l'image sur toute la partie haute */
+    background-image: url('../../assets/images/sports-tools.jpg'); 
+    background-size: cover;
+    background-position: center;
+    /* Opacité augmentée pour que l'image soit bien visible */
+    opacity: 0.7; 
+    z-index: 0;
+}
+
+/* Overlay optionnel pour garder le texte lisible si l'image est claire */
+.hero-luxury-activite::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+    z-index: 1;
+}
+
+.hero-content-luxury-activite {
+    position: relative;
+    z-index: 2; /* Passe au dessus de l'overlay */
+    color: white;
+}
+
+/* --- FILTRES AVEC ANGLES CERCLES (BOUTONS ARRONDIS) --- */
+.filter-btn-luxury-activite {
+    appearance: none;
+    background: white;
+    border: 1.5px solid var(--or-luxe);
+    padding: 12px 30px;
+    /* Transformation des angles en cercles */
+    border-radius: 50px; 
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    color: var(--bordeaux-luxe);
+    cursor: pointer;
+    min-width: 220px;
+    transition: all 0.3s ease;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.filter-btn-luxury-activite:hover {
+    background-color: #fffdfa;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.2);
+}
+
+/* --- CARTES ET IMAGES AVEC ANGLES CERCLES --- */
+.card-front-activite, 
+.card-hover-activite,
+.hebergement-card-luxury-activite {
+    /* Arrondi prononcé pour les cartes */
+    border-radius: 30px !important; 
+    overflow: hidden;
+}
+
+.card-inner-activite {
+    border-radius: 30px;
+}
+
+.card-image-luxury-activite {
+    /* L'image suit l'arrondi du haut de la carte */
+    border-radius: 30px 30px 0 0; 
+    overflow: hidden;
+}
+
+.card-image-luxury-activite img {
+    transition: transform 0.5s ease;
+}
+
+.hebergement-card-luxury-activite:hover .card-image-luxury-activite img {
+    transform: scale(1.1);
+}
+
+/* Badge de durée arrondi */
+.activite-duration-badge-activite {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 6px 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--bordeaux-luxe);
+    border-radius: 40px; /* Style pilule/cercle */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Bouton "Proposer une activité" arrondi */
+.btn-add-hebergement-activite {
+    border-radius: 50px;
+    padding: 15px 35px;
+    border: 2px solid var(--or-luxe);
+    font-weight: 600;
+}
+
+/* Badge du haut arrondi */
+.hero-badge-luxury-activite {
+    background: rgba(212, 175, 55, 0.15);
+    padding: 8px 20px;
+    border-radius: 30px;
+    display: inline-flex;
+    margin-bottom: 20px;
+    backdrop-filter: blur(5px);
+}
+
+.hero-content-luxury-activite {
+    position: relative;
+    z-index: 2;
+    color: var(--blanc-pur);
+    padding: 0 20px;
+}
+
+.hero-badge-luxury-activite {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.badge-line-activite {
+    width: 40px;
+    height: 1px;
+    background: var(--or-luxe);
+}
+
+.badge-text-activite {
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    color: var(--or-luxe);
+    font-weight: 500;
+}
+
+.hero-title-luxury-activite .title-french-activite {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.5rem;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.1;
+}
+
+.hero-ornament-activite {
+    margin: 25px auto;
+}
+
+.ornament-diamond-activite {
+    width: 12px;
+    height: 12px;
+    background: var(--or-luxe);
+    transform: rotate(45deg);
+    margin: 0 auto;
+    box-shadow: 0 0 10px var(--or-luxe);
+}
+
+.hero-subtitle-luxury-activite {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 30px;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+.btn-add-hebergement-activite {
+    display: inline-block;
+    padding: 14px 35px;
+    background: transparent;
+    border: 1px solid var(--or-luxe);
+    color: var(--or-luxe);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    transition: all 0.4s ease;
+}
+
+.btn-add-hebergement-activite:hover {
+    background: var(--or-luxe);
+    color: var(--bordeaux-luxe);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+/* --- SECTION HEADER --- */
+.hebergements-luxury-activite {
+    padding: 80px 0;
+    position: relative;
+}
+
+.section-header-luxury-activite {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-subtitle-activite {
+    color: var(--or-luxe);
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.section-title-luxury-activite {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    color: var(--bordeaux-luxe);
+    margin-bottom: 15px;
+}
+
+
+/* --- CONTENEUR DES FILTRES (L'alignement) --- */
+.category-filters-luxury-activite {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+    padding: 10px;
+}
+
+/* --- LE CONTENEUR INDIVIDUEL --- */
+.city-select-container-activite {
+    position: relative;
+    /* On arrondit le conteneur pour qu'il épouse le select */
+    border-radius: 50px; 
+    background: #ffffff;
+    transition: all 0.3s ease;
+}
+
+/* --- LE SELECT (Le menu déroulant circulaire) --- */
+.filter-btn-luxury-activite {
+    appearance: none; /* Supprime le style par défaut du navigateur */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    
+    background-color: #ffffff;
+    border: 1.5px solid #d4af37; /* Bordure dorée */
+    padding: 12px 40px 12px 25px; /* Plus d'espace à droite pour l'icône custom */
+    
+    /* Angles totalement circulaires */
+    border-radius: 50px !important; 
+    
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #4a0404; /* Bordeaux */
+    cursor: pointer;
+    min-width: 240px;
+    outline: none;
+    transition: all 0.3s ease;
+    
+    /* Ombre légère pour le relief */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* --- EFFET AU SURVOL --- */
+.filter-btn-luxury-activite:hover {
+    background-color: #fffdfa;
+    border-color: #b38f2d;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
+}
+
+/* --- PETITE ASTUCE : Ajouter une flèche dorée personnalisée --- */
+/* Comme on a supprimé le style par défaut, on peut ajouter une icône via le conteneur */
+.city-select-container-activite::after {
+    content: '\f107'; /* Icône chevron-down de FontAwesome */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #d4af37;
+    pointer-events: none; /* Laisse le clic passer au select */
+}
+
+/* --- OPTIONNEL : Style quand le select est ouvert --- */
+.filter-btn-luxury-activite:focus {
+    border-color: #4a0404;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+/* --- HERO SECTION FULL SCREEN --- */
+.hero-luxury-activite {
+    position: relative;
+    /* Prend toute la hauteur de l'écran */
+    height: 100vh; 
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    /* On s'assure qu'il n'y a pas de marges parasites */
+    margin: 0;
+    padding: 0;
+}
+
+.hebergment-hero-backdrop-activite {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../../assets/images/sports-tools.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Opacité plus forte pour que l'image soit bien présente */
+    opacity: 0.8; 
+    z-index: 0;
+}
+
+/* Overlay pour assurer le contraste du texte blanc sur l'image */
+.hero-luxury-activite::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.7));
+    z-index: 1;
+}
+
+.hero-content-luxury-activite {
+    position: relative;
+    z-index: 2; /* Pour passer au-dessus de l'image et de l'overlay */
+    text-align: center;
+    color: #ffffff;
+    width: 100%;
+}
+
+/* --- FILTRES & LIEUX (ANGLES CERCLES) --- */
+.filter-btn-luxury-activite {
+    appearance: none;
+    background: #ffffff;
+    border: 1px solid #d4af37;
+    padding: 12px 25px;
+    /* Angles totalement arrondis (style pilule) */
+    border-radius: 50px; 
+    font-family: 'Montserrat', sans-serif;
+    color: #4a0404;
+    cursor: pointer;
+    min-width: 200px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.filter-btn-luxury-activite:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25);
+}
+
+/* --- CARTES & IMAGES (ANGLES CERCLES) --- */
+.hebergement-card-luxury-activite {
+    /* Arrondi des coins de la carte */
+    border-radius: 35px !important; 
+    overflow: hidden;
+    background: #ffffff;
+    transition: transform 0.3s ease;
+}
+
+.card-front-activite, .card-hover-activite {
+    border-radius: 35px !important;
+}
+
+.card-image-luxury-activite {
+    height: 250px;
+    /* Arrondi uniquement sur le haut pour épouser la carte */
+    border-radius: 35px 35px 0 0; 
+    overflow: hidden;
+}
+
+.card-image-luxury-activite img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Badges arrondis */
+.card-price-tag-activite, .activite-duration-badge-activite {
+    border-radius: 20px;
+    padding: 5px 15px;
+}
+/* --- FILTRES --- */
+.filter-btn-luxury-activite {
+    appearance: none;
+    background: white;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 12px 25px;
+    border-radius: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    color: var(--noir-profond);
+    cursor: pointer;
+    min-width: 220px;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.filter-btn-luxury-activite:focus {
+    border-color: var(--or-luxe);
+    outline: none;
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.1);
+}
+
+/* --- GRILLE & CARTES --- */
+.hebergements-grid-luxury-activite {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    padding: 0 5%;
+}
+
+.hebergement-card-luxury-activite {
+    height: 450px;
+    perspective: 1000px;
+}
+
+.card-inner-activite {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.hebergement-card-luxury-activite:hover .card-inner-activite {
+    transform: rotateY(180deg);
+}
+
+.card-front-activite, .card-hover-activite {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    background: white;
+}
+
+/* Recto de la carte */
+.card-image-luxury-activite {
+    position: relative;
+    height: 240px;
+    overflow: hidden;
+}
+
+.card-image-luxury-activite img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-price-tag-activite {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--bordeaux-luxe);
+    color: var(--or-luxe);
+    padding: 5px 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: 1px solid var(--or-luxe);
+}
+
+.activite-duration-badge-activite {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    color: var(--noir-profond);
+    border-radius: 20px;
+}
+
+.card-content-luxury-activite {
+    padding: 20px;
+    text-align: left;
+}
+
+.activite-cat-label-activite {
+    color: var(--or-luxe);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+.card-name-luxury-activite {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    color: var(--bordeaux-luxe);
+    margin: 10px 0;
+}
+
+.detail-luxury-activite {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.activite-short-desc-activite {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #444;
+}
+
+/* Verso de la carte (Hover) */
+.card-hover-activite {
+    background: var(--bordeaux-luxe);
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    color: var(--blanc-pur);
+    text-align: center;
+}
+
+.btn-hover-luxury-activite {
+    background: transparent;
+    border: 1px solid var(--or-luxe);
+    color: var(--or-luxe);
+    padding: 10px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.btn-hover-luxury-activite:hover {
+    background: var(--or-luxe);
+    color: var(--bordeaux-luxe);
+}
+
+/* --- LOADER --- */
+.mandala-spinner-activite {
+    width: 60px;
+    height: 60px;
+    border: 2px solid var(--or-luxe);
+    margin: 0 auto;
+    position: relative;
+    animation: rotateMandala 4s linear infinite;
+}
+
+.inner-diamond-activite {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    background: var(--or-luxe);
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+@keyframes rotateMandala {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.gold-loader-text-activite {
+    color: var(--or-luxe);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .hero-title-luxury-activite .title-french-activite {
+        font-size: 2.8rem;
+    }
+    .hebergements-grid-luxury-activite {
+        grid-template-columns: 1fr;
+    }
+}

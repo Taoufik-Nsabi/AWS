@@ -1,0 +1,194 @@
+.vols-page {
+  min-height: 100vh;
+}
+
+.vols-hero {
+  position: relative;
+  min-height: 55vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(125deg, #3d0a0c, #0f5a43);
+  color: #fff;
+}
+
+.vols-overlay {
+  position: absolute;
+  inset: 0;
+  background: url("../../assets/images/zalij.avif");
+  opacity: 0.18;
+}
+
+.vols-hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.vols-title {
+  font-size: 3rem;
+  font-family: "Cormorant Garamond", serif;
+  margin-bottom: 14px;
+}
+
+.vols-subtitle {
+  max-width: 760px;
+  margin: 0 auto;
+  opacity: 0.9;
+}
+
+.vols-content {
+  padding: 60px 0 90px;
+}
+
+.vols-filters {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(180px, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.vols-filter-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vols-filter-item label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #3d0a0c;
+  letter-spacing: 0.5px;
+}
+
+.vols-filter-item input,
+.vols-filter-item select {
+  height: 44px;
+  border: 1px solid #d8d8d8;
+  border-radius: 8px;
+  padding: 0 12px;
+  background: #fff;
+}
+
+.vols-search-btn {
+  align-self: end;
+  height: 44px;
+  margin-top: 0;
+}
+
+.vols-status {
+  margin-bottom: 18px;
+}
+
+.vols-empty-hint {
+  background: #fff8e8;
+  border: 1px solid #efd9a8;
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: #5d4a1f;
+}
+
+.vols-live-note {
+  margin: -4px 0 18px;
+  color: #3f3f3f;
+  font-size: 0.92rem;
+}
+
+.vols-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+.vol-card {
+  border: 1px solid rgba(61, 10, 12, 0.12);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+  padding: 18px;
+}
+
+.vol-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.vol-card-head h3 {
+  font-size: 1.08rem;
+  color: #3d0a0c;
+}
+
+.vol-status {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #f2f2f2;
+}
+
+.vol-status.scheduled {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.vol-status.active {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.vol-status.delayed {
+  background: #fff8e1;
+  color: #a56a00;
+}
+
+.vol-route {
+  display: grid;
+  grid-template-columns: 1fr 40px 1fr;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.vol-airport {
+  font-weight: 700;
+  color: #0f5a43;
+}
+
+.vol-meta,
+.vol-time {
+  font-size: 0.84rem;
+  color: #666;
+}
+
+.vol-arrow {
+  text-align: center;
+  color: #d4af37;
+  font-weight: 700;
+}
+
+.vol-footer {
+  border-top: 1px dashed #ddd;
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.8rem;
+  color: #555;
+}
+
+@media (max-width: 980px) {
+  .vols-filters {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .vols-title {
+    font-size: 2.2rem;
+  }
+
+  .vols-filters {
+    grid-template-columns: 1fr;
+  }
+}

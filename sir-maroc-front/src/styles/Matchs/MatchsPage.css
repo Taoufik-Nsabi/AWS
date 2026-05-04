@@ -1,0 +1,118 @@
+.matchs-page {
+  min-height: 100vh;
+}
+
+.matchs-hero {
+  position: relative;
+  height: 320px;
+  background: linear-gradient(135deg, #0f3f2f 0%, #1e6e53 55%, #d2ad5c 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.matchs-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.2), transparent 45%);
+}
+
+.matchs-hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.matchs-title {
+  margin: 10px 0;
+}
+
+.matchs-subtitle {
+  max-width: 720px;
+}
+
+.matchs-content {
+  padding: 32px 0 40px;
+}
+
+.matchs-filters {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(16, 65, 48, 0.12);
+  padding: 18px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 14px;
+}
+
+.matchs-filter-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.matchs-filter-item label {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.matchs-filter-item input,
+.matchs-filter-item select {
+  border: 1px solid #d8deea;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.matchs-search-btn {
+  align-self: end;
+}
+
+.matchs-status {
+  margin-top: 14px;
+  color: #0f3f2f;
+}
+
+.matchs-grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.match-card {
+  border: 1px solid #e7ecf3;
+  border-radius: 14px;
+  background: #fff;
+  padding: 16px;
+  box-shadow: 0 8px 20px rgba(17, 56, 45, 0.08);
+}
+
+.match-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.match-status {
+  background: #0f5a43;
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 5px 9px;
+  border-radius: 999px;
+}
+
+.match-teams {
+  margin: 12px 0 10px;
+  font-weight: 700;
+  color: #19362d;
+}
+
+.match-meta {
+  margin: 5px 0;
+  color: #4f6270;
+}
+
+.match-score {
+  margin-top: 10px;
+  font-weight: 700;
+  color: #b88722;
+}

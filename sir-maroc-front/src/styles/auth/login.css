@@ -1,0 +1,157 @@
+.auth-wrapper {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fdfaf5; 
+  
+  /* --- AJUSTEMENT POUR LA NAV --- */
+  padding-top: 120px;
+  padding-bottom: 60px;
+  padding-left: 20px;
+  padding-right: 20px;
+  overflow: hidden; 
+}
+
+/* --- LE FOND ZELLIJ AVEC OPACITÉ --- */
+.auth-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  
+
+  background-image: url('../../assets/images/zalij.avif');
+  background-size: cover; 
+  background-repeat: repeat;
+
+  opacity: 0.60;
+  
+  z-index: 0; 
+  pointer-events: none; 
+}
+
+.auth-container {
+  position: relative;
+  z-index: 1; 
+  
+  background: white;
+  width: 100%;
+  max-width: 450px;
+  padding: 50px;
+  border-radius: 4px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+  border-top: 5px solid #3d0a0c;
+  text-align: center;
+}
+
+
+.auth-brand h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-style: italic;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.auth-logo-text {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  letter-spacing: 5px;
+  font-size: 1.5rem;
+  color: #3d0a0c;
+}
+
+.auth-line {
+  width: 50px;
+  height: 2px;
+  background: #0f5a43; /* Accent vert */
+  margin: 10px auto;
+}
+
+/* Style des champs de saisie */
+.input-group {
+  text-align: left;
+  margin-bottom: 25px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #3d0a0c;
+  margin-bottom: 8px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  background: #fcfcfc;
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.3s;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #0f5a43; /* Devient vert au focus */
+  background: white;
+}
+
+/* Bouton Royal d'accès */
+.auth-btn {
+  width: 100%;
+  background: #3d0a0c;
+  color: white;
+  padding: 15px;
+  border: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: 0.4s;
+  margin-top: 10px;
+}
+
+.auth-btn:hover {
+  background: #0f5a43;
+  transform: translateY(-2px);
+}
+
+.auth-options {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-bottom: 25px;
+  color: #666;
+}
+
+.auth-footer {
+  margin-top: 30px;
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.auth-footer a {
+  color: #0f5a43;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.auth-divider {
+  margin: 18px 0 12px;
+  color: #777;
+  font-size: 0.9rem;
+  text-transform: lowercase;
+}
+
+.google-auth-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}

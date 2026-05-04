@@ -1,0 +1,182 @@
+/* --- styles/admin/Tables.css --- */
+.admin-table-container {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+.luxury-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.luxury-table th {
+    background: #f8f9fa;
+    color: var(--maroc-bordeaux);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    padding: 20px 15px;
+    text-align: left;
+    border-bottom: 2px solid var(--maroc-or);
+}
+
+.luxury-table td {
+    padding: 18px 15px;
+    border-bottom: 1px solid #eee;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.luxury-table tr:last-child td {
+    border-bottom: none;
+}
+
+.luxury-table tr:hover {
+    background-color: #fdfaf5;
+}
+
+.bold {
+    font-weight: 700;
+    color: var(--maroc-bordeaux);
+}
+
+/* Cellule Actions */
+.actions-cell {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-action {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: white;
+    font-size: 0.9rem;
+}
+
+.btn-action.view { background: #5bc0de; }
+.btn-action.edit { background: var(--maroc-vert); }
+.btn-action.approve { background: #28a745; } /* Vert Succès */
+.btn-action.reject { background: #e67e22; }  /* Orange Alerte */
+.btn-action.delete { background: #d9534f; }
+
+.btn-action:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    filter: brightness(1.1);
+}
+
+/* Status Pills */
+.status-pill {
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+/* Boutons d'action généraux */
+.btn-action {
+  border: none;
+  background: none;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: 0.3s;
+  margin-right: 5px;
+}
+
+.btn-action.approve {
+  color: #2ecc71; /* Vert */
+  background: rgba(46, 204, 113, 0.1);
+}
+.btn-action.approve:hover {
+  background: #2ecc71;
+  color: white;
+}
+
+.btn-action.reject {
+  color: #e74c3c; /* Rouge */
+  background: rgba(231, 76, 60, 0.1);
+}
+.btn-action.reject:hover {
+  background: #e74c3c;
+  color: white;
+}
+
+.btn-action.view { color: #3498db; }
+.btn-action.edit { color: #f1c40f; }
+.btn-action.delete { color: #3d0a0c; } /* Ton bordeaux */
+
+/* Style pour le nom */
+.bold-name {
+  font-weight: 600;
+  color: #3d0a0c;
+}
+
+.actions-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Espace entre les éléments */
+}
+
+.btn-text-action {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: 0.3s;
+}
+
+.btn-text-action.view { color: #3498db; }
+.btn-text-action.edit { color: #d4af37; } /* Ton Or */
+
+.status-actions {
+  display: flex;
+  gap: 5px;
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
+  padding: 0 10px;
+}
+
+.table-actions-header {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.back-link-luxury {
+    text-decoration: none;
+    color: var(--maroc-vert, #0f5a43);
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: rgba(15, 90, 67, 0.05);
+    transition: all 0.3s ease;
+}
+
+.back-link-luxury:hover {
+    color: var(--maroc-or, #d4af37);
+    background: rgba(212, 175, 55, 0.1);
+    transform: translateX(-3px);
+}
+
+.back-link-luxury i {
+    font-size: 0.8rem;
+}

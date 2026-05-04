@@ -1,0 +1,41 @@
+services:
+
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+
+    # ─── Aliases d'interfaces ─────────────────────────────
+
+    # Lieu Service
+    App\Service\Lieu\LieuServiceInterface:
+        alias: App\Service\Lieu\LieuService
+
+    # Lieu Repository
+    App\Repository\Interface\LieuRepositoryInterface:
+        alias: App\Repository\LieuRepository
+
+    # Hebergement
+    App\Service\Hebergement\HebergementServiceInterface:
+        alias: App\Service\Hebergement\HebergementService
+
+    # Activite
+    App\Service\Activite\ActiviteServiceInterface:
+        alias: App\Service\Activite\ActiviteService
+
+    # Restaurant
+    App\Service\Restaurant\RestaurantServiceInterface:
+        alias: App\Service\Restaurant\RestaurantService
+#-----Avis-----------------------------
+    App\Service\Avis\IAvisService:   
+       alias: App\Service\Avis\AvisService
+
+# ----MunumentsHistorique-----------------------
+
+    App\Service\MonumentHistoriqueService\MonumentHistoriqueServiceInterface:
+        class: App\Service\MonumentHistoriqueService
+
+ 
+    

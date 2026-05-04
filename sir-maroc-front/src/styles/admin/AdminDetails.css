@@ -1,0 +1,169 @@
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.details-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+  border-left: 4px solid #3d0a0c; /* Ton bordeaux */
+}
+
+.main-image {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.image-warning {
+  margin-top: 12px;
+  font-size: 0.92rem;
+  color: #7a5b16;
+  background: #fff8e1;
+  border: 1px solid #f0d48a;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.luxury-title {
+  color: #3d0a0c;
+  font-family: 'Playfair Display', serif; /* Si tu as cette font */
+  margin-bottom: 5px;
+}
+
+.service-pill {
+  display: inline-block;
+  background: #f1f1f1;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  margin: 4px;
+  color: #555;
+  border: 1px solid #d4af37; /* Couleur Or */
+}
+
+.btn-huge {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-huge.approve { background: #27ae60; color: white; }
+.btn-huge.reject { background: #3d0a0c; color: white; }
+.btn-huge.pending { background: #1f6f5f; color: white; }
+.btn-huge.edit { background: #d4af37; color: white; } /* Or */
+
+.btn-huge:hover { opacity: 0.9; transform: translateY(-2px); }
+
+/* Barre de navigation haute */
+.admin-top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Style Fil d'Ariane (Breadcrumb) */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.breadcrumb span {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.breadcrumb span:hover {
+  color: #d4af37; /* Ton Or */
+}
+
+.breadcrumb .current {
+  color: #3d0a0c; /* Ton Bordeaux */
+  font-weight: bold;
+  cursor: default;
+}
+
+.breadcrumb i {
+  font-size: 0.7rem;
+}
+
+/* Bouton Fermer (X) au lieu de "Retour" */
+.btn-close-details {
+  background: white;
+  border: 1px solid #eee;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.btn-close-details:hover {
+  background: #3d0a0c;
+  color: white;
+  transform: rotate(90deg);
+}
+
+/* Titre principal */
+.details-header-main {
+  margin-bottom: 30px;
+}
+
+.details-header-main h1 {
+  font-size: 2.5rem;
+  color: #3d0a0c;
+  margin-bottom: 5px;
+}
+
+.status-badge-large {
+  display: inline-block;
+  background: #fff3cd;
+  color: #856404;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 10px 0 16px;
+}
+
+.status-badge-large.approuve {
+  background: #d8f5e4;
+  color: #1e8449;
+}
+
+.status-badge-large.rejete {
+  background: #fde2df;
+  color: #922b21;
+}
+
+.status-badge-large.en_attente {
+  background: #fff3cd;
+  color: #856404;
+}

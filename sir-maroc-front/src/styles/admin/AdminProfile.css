@@ -1,0 +1,211 @@
+.admin-profile-container {
+  padding: 10px 30px 30px 30px; /* 10px en haut au lieu de 30px */
+  max-width: 1000px;
+  margin: 0 auto;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.profile-actions-top {
+  margin-bottom: 15px; /* Réduit de 25px à 15px */
+  display: flex;
+  align-items: center;
+}
+
+/* Bannière de profil */
+.profile-header-banner {
+  height: 200px;
+  background: linear-gradient(135deg, var(--maroc-bordeaux) 0%, var(--maroc-vert) 100%);
+  border-radius: 20px;
+  position: relative;
+  margin-bottom: 100px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.profile-main-info {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  position: absolute;
+  bottom: -60px;
+  left: 50px;
+}
+
+.profile-avatar-big {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  border: 6px solid #fff;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--maroc-shadow);
+}
+
+.profile-avatar-big img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.status-indicator-online {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  background: #2ecc71;
+  border: 3px solid #fff;
+  border-radius: 50%;
+}
+
+.profile-name-role h1 {
+  font-family: 'Playfair Display', serif;
+  color: #fff;
+  font-size: 2.2rem;
+  margin: 0 0 5px 0;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.role-tag {
+  background: var(--maroc-or);
+  color: #fff;
+  padding: 6px 18px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Carte de contenu unique */
+.profile-single-content {
+  margin-top: 20px;
+}
+
+.profile-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: var(--maroc-shadow);
+  padding: 40px;
+  border: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.card-header-luxury {
+  margin-bottom: 35px;
+}
+
+.card-header-luxury h3 {
+  font-family: 'Playfair Display', serif;
+  color: var(--maroc-vert);
+  font-size: 1.6rem;
+  margin: 0 0 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-line {
+  width: 60px;
+  height: 3px;
+  background: var(--maroc-or);
+}
+
+/* Grille d'infos */
+.card-body-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.info-item label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--maroc-or);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+
+.info-item p {
+  font-size: 1.05rem;
+  color: var(--maroc-text);
+  font-weight: 500;
+  margin: 0;
+}
+
+.info-item.full-width {
+  grid-column: span 2;
+  padding-top: 20px;
+  border-top: 1px solid #f5f5f5;
+}
+
+.bio-text {
+  line-height: 1.8;
+  color: #666 !important;
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- BOUTON RETOUR --- */
+.profile-actions-top {
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+}
+
+.back-to-admin {
+  text-decoration: none;
+  color: var(--maroc-vert);
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  padding: 8px 15px;
+  border-radius: 8px;
+  background-color: rgba(15, 90, 67, 0.05); /* Un vert très léger en fond */
+}
+
+.back-to-admin i {
+  font-size: 0.85rem;
+  transition: transform 0.3s ease;
+}
+
+.back-to-admin:hover {
+  color: var(--maroc-or);
+  background-color: rgba(212, 175, 55, 0.1);
+}
+
+.back-to-admin:hover i {
+  transform: translateX(-5px); /* Animation de la flèche vers la gauche */
+}
+
+/* Ajustement pour mobile */
+@media (max-width: 768px) {
+  .profile-actions-top {
+    justify-content: center;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .profile-main-info {
+    flex-direction: column;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 100%;
+  }
+  
+  .card-body-grid { grid-template-columns: 1fr; }
+  .info-item.full-width { grid-column: span 1; }
+  .profile-header-banner { margin-bottom: 180px; }
+}

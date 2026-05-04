@@ -1,0 +1,301 @@
+services:
+  api-gateway:
+    build:
+      context: ./APIGateway
+      dockerfile: Dockerfile
+    container_name: sirmaroc-gateway
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:80
+
+      ConnectionStrings__Redis: redis:6379
+
+      Jwt__Issuer: UserService.Api
+      Jwt__Audience: UserService.Client
+      Jwt__SecretKey: "${JWT_SECRET_KEY:-CHANGE_ME_USE_A_STRONG_256_BIT_SECRET_KEY_123456789}"
+
+      Gateway__SharedSecret: "${GATEWAY_SHARED_SECRET:-change-me-gateway-secret}"
+
+      Services__Auth__BaseUrl: http://auth-service:8080/
+
+      ReverseProxy__Clusters__auth-cluster__Destinations__auth-primary__Address: http://auth-service:8080/
+      ReverseProxy__Clusters__matches-cluster__Destinations__matches-primary__Address: http://matches-service:8083/
+      ReverseProxy__Clusters__community-cluster__Destinations__community-primary__Address: http://community-service:8080/
+
+      ReverseProxy__Routes__community-upload-route__ClusterId: community-cluster
+      ReverseProxy__Routes__community-upload-route__AuthorizationPolicy: anonymous
+      ReverseProxy__Routes__community-upload-route__Match__Path: /api/community/api/v1/chat/uploads/{**catch-all}
+      ReverseProxy__Routes__community-upload-route__Transforms__0__PathRemovePrefix: /api/community
+      ReverseProxy__Routes__community-upload-route__Transforms__1__RequestHeader: X-Gateway-Source
+      ReverseProxy__Routes__community-upload-route__Transforms__1__Set: SirmarocGateway
+
+      ReverseProxy__Routes__community-websocket-route__ClusterId: community-cluster
+      ReverseProxy__Routes__community-websocket-route__AuthorizationPolicy: anonymous
+      ReverseProxy__Routes__community-websocket-route__Match__Path: /api/community/ws/{**catch-all}
+      ReverseProxy__Routes__community-websocket-route__Transforms__0__PathRemovePrefix: /api/community
+      ReverseProxy__Routes__community-websocket-route__Transforms__1__RequestHeader: X-Gateway-Source
+      ReverseProxy__Routes__community-websocket-route__Transforms__1__Set: SirmarocGateway
+
+      ReverseProxy__Routes__community-route__ClusterId: community-cluster
+      ReverseProxy__Routes__community-route__AuthorizationPolicy: authenticated
+      ReverseProxy__Routes__community-route__Match__Path: /api/community/{**catch-all}
+      ReverseProxy__Routes__community-route__Transforms__0__PathRemovePrefix: /api/community
+      ReverseProxy__Routes__community-route__Transforms__1__RequestHeader: X-Gateway-Source
+      ReverseProxy__Routes__community-route__Transforms__1__Set: SirmarocGateway
+
+      Cors__AllowedOrigins__0: http://localhost:3000
+      Cors__AllowedOrigins__1: http://localhost:5173
+
+    depends_on:
+      auth-service:
+        condition: service_started
+      matches-service:
+        condition: service_started
+      community-service:
+        condition: service_started
+      redis:
+        condition: service_started
+    networks:
+      - sirmaroc-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: sirmaroc-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - sirmaroc-net
+
+  auth-service:
+    build:
+      context: ./SirMarocUser
+      dockerfile: UserService.Api/Dockerfile
+    container_name: auth-service
+    restart: unless-stopped
+    ports:
+      - "5197:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:8080
+
+      ConnectionStrings__DefaultConnection: Server=auth-sqlserver,1433;Database=UserServiceDb;User Id=sa;Password=${SA_PASSWORD:-YourStrong@Passw0rd2026};TrustServerCertificate=True
+
+      Jwt__Issuer: UserService.Api
+      Jwt__Audience: UserService.Client
+      Jwt__Key: "${JWT_SECRET_KEY:-CHANGE_ME_USE_A_STRONG_256_BIT_SECRET_KEY_123456789}"
+
+      Auth__Email: "${AUTH_ADMIN_EMAIL:-admin@sirmaroc.com}"
+      Auth__Password: "${AUTH_ADMIN_PASSWORD:-admin123}"
+      Auth__Role: Admin
+
+      App__BackendUrl: http://localhost:8080
+
+    depends_on:
+      auth-sqlserver:
+        condition: service_healthy
+      auth-db-init:
+        condition: service_completed_successfully
+    networks:
+      - sirmaroc-net
+
+  auth-sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: auth-sqlserver
+    restart: unless-stopped
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "${SA_PASSWORD:-YourStrong@Passw0rd2026}"
+      SA_PASSWORD: "${SA_PASSWORD:-YourStrong@Passw0rd2026}"
+      MSSQL_PID: "Developer"
+    ports:
+      - "${AUTH_SQLSERVER_HOST_PORT:-1436}:1433"
+    volumes:
+      - auth_sqlserver_data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$${MSSQL_SA_PASSWORD}\" -Q \"SELECT 1\" -C || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+      start_period: 60s
+    networks:
+      - sirmaroc-net
+
+  auth-db-init:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: auth-sqlserver-init
+    depends_on:
+      auth-sqlserver:
+        condition: service_healthy
+    entrypoint:
+      - /bin/bash
+      - -c
+      - >
+        /opt/mssql-tools18/bin/sqlcmd -S auth-sqlserver -U sa -P "$$MSSQL_SA_PASSWORD" -Q "IF DB_ID('UserServiceDb') IS NULL CREATE DATABASE [UserServiceDb];" -C
+    environment:
+      MSSQL_SA_PASSWORD: "${SA_PASSWORD:-YourStrong@Passw0rd2026}"
+      SA_PASSWORD: "${SA_PASSWORD:-YourStrong@Passw0rd2026}"
+    restart: "no"
+    networks:
+      - sirmaroc-net
+
+  matches-service:
+    build:
+      context: ./microservice-matchs
+      dockerfile: Dockerfile
+    container_name: matches-service
+    restart: unless-stopped
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SERVER_PORT: 8083
+
+      DB_URL: jdbc:sqlserver://matches-sqlserver:1433;databaseName=sirmaroc_matchs;encrypt=true;trustServerCertificate=true
+      DB_USERNAME: sa
+      DB_PASSWORD: "${SA_PASSWORD:-YourStrong@Passw0rd2026}"
+
+      CORS_ALLOWED_ORIGINS: http://localhost:3000,http://localhost:5173
+
+      GATEWAY_TRUST_ENABLED: "true"
+      GATEWAY_SHARED_SECRET: "${GATEWAY_SHARED_SECRET:-change-me-gateway-secret}"
+
+    depends_on:
+      matches-sqlserver:
+        condition: service_healthy
+      matches-db-init:
+        condition: service_completed_successfully
+    networks:
+      - sirmaroc-net
+
+  matches-sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: matches-sqlserver
+    restart: unless-stopped
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "${SA_PASSWORD:-YourStrong@Passw0rd2026}"
+      SA_PASSWORD: "${SA_PASSWORD:-YourStrong@Passw0rd2026}"
+      MSSQL_PID: "Developer"
+    ports:
+      - "${MATCHES_SQLSERVER_HOST_PORT:-1434}:1433"
+    volumes:
+      - matches_sqlserver_data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$${MSSQL_SA_PASSWORD}\" -Q \"SELECT 1\" -C || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+      start_period: 60s
+    networks:
+      - sirmaroc-net
+
+  matches-db-init:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: matches-sqlserver-init
+    depends_on:
+      matches-sqlserver:
+        condition: service_healthy
+    entrypoint:
+      - /bin/bash
+      - -c
+      - >
+        /opt/mssql-tools18/bin/sqlcmd -S matches-sqlserver -U sa -P "$$MSSQL_SA_PASSWORD" -Q "IF DB_ID('sirmaroc_matchs') IS NULL CREATE DATABASE [sirmaroc_matchs];" -C
+    environment:
+      MSSQL_SA_PASSWORD: "${SA_PASSWORD:-YourStrong@Passw0rd2026}"
+      SA_PASSWORD: "${SA_PASSWORD:-YourStrong@Passw0rd2026}"
+    restart: "no"
+    networks:
+      - sirmaroc-net
+
+  community-service:
+    build:
+      context: ./community-service
+      dockerfile: Dockerfile
+    container_name: community-service
+    restart: unless-stopped
+    ports:
+      - "8084:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SERVER_PORT: 8080
+
+      DB_URL: jdbc:sqlserver://community-sqlserver:1433;databaseName=sirmaroc_community;encrypt=true;trustServerCertificate=true
+      DB_USERNAME: sa
+      DB_PASSWORD: "${SA_PASSWORD:-YourStrong@Passw0rd2026}"
+
+      CORS_ALLOWED_ORIGINS: http://localhost:3000,http://localhost:5173
+
+      GATEWAY_TRUST_ENABLED: "true"
+      GATEWAY_SHARED_SECRET: "${GATEWAY_SHARED_SECRET:-change-me-gateway-secret}"
+      JWT_ISSUER: UserService.Api
+      JWT_AUDIENCE: UserService.Client
+      JWT_SECRET_KEY: "${JWT_SECRET_KEY:-CHANGE_ME_USE_A_STRONG_256_BIT_SECRET_KEY_123456789}"
+
+      CHAT_ALLOW_GUEST_CONNECTIONS: "true"
+      CHAT_UPLOAD_DIR: /home/spring/uploads/chat
+      CHAT_UPLOAD_PUBLIC_BASE_PATH: /api/community/api/v1/chat/uploads
+
+    depends_on:
+      community-sqlserver:
+        condition: service_healthy
+      community-db-init:
+        condition: service_completed_successfully
+    volumes:
+      - community_chat_uploads:/home/spring/uploads
+    networks:
+      - sirmaroc-net
+
+  community-sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: community-sqlserver
+    restart: unless-stopped
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "${SA_PASSWORD:-YourStrong@Passw0rd2026}"
+      SA_PASSWORD: "${SA_PASSWORD:-YourStrong@Passw0rd2026}"
+      MSSQL_PID: "Developer"
+    ports:
+      - "${COMMUNITY_SQLSERVER_HOST_PORT:-1435}:1433"
+    volumes:
+      - community_sqlserver_data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$${MSSQL_SA_PASSWORD}\" -Q \"SELECT 1\" -C || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+      start_period: 60s
+    networks:
+      - sirmaroc-net
+
+  community-db-init:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: community-sqlserver-init
+    depends_on:
+      community-sqlserver:
+        condition: service_healthy
+    entrypoint:
+      - /bin/bash
+      - -c
+      - >
+        /opt/mssql-tools18/bin/sqlcmd -S community-sqlserver -U sa -P "$$MSSQL_SA_PASSWORD" -Q "IF DB_ID('sirmaroc_community') IS NULL CREATE DATABASE [sirmaroc_community];" -C
+    environment:
+      MSSQL_SA_PASSWORD: "${SA_PASSWORD:-YourStrong@Passw0rd2026}"
+      SA_PASSWORD: "${SA_PASSWORD:-YourStrong@Passw0rd2026}"
+    restart: "no"
+    networks:
+      - sirmaroc-net
+
+volumes:
+  auth_sqlserver_data:
+  matches_sqlserver_data:
+  community_sqlserver_data:
+  community_chat_uploads:
+
+networks:
+  sirmaroc-net:
+    name: sirmaroc-net
+    driver: bridge
