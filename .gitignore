@@ -23,6 +23,8 @@
 **/.env.*
 !**/.env.example
 !**/.env.exemple
+!.env.aws.example
+!**/.env.aws.example
 **/.git-backup-single-repo/
 SirMaroc/adresse
 SirMaroc/categories
