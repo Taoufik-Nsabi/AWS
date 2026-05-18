@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../../styles/Profile/LieuUpdate.css";
-
-const API_BASE = "http://localhost:8080";
-const IMAGE_BASE_URL = "http://localhost:8081";
+import { buildApiUrl, buildTourismAssetUrl } from "../../config/env";
 
 export default function RestaurantUpdate() {
   const { id } = useParams();
@@ -31,7 +29,7 @@ export default function RestaurantUpdate() {
     const loadRestaurant = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`${API_BASE}/api/tourism/restaurants/${id}`, {
+        const res = await fetch(buildApiUrl(`/api/tourism/restaurants/${id}`), {
           headers: { 
             "Authorization": `Bearer ${token}`,
             "Accept": "application/json" 
@@ -92,7 +90,7 @@ export default function RestaurantUpdate() {
     imagesToDelete.forEach((img) => fd.append("deletedImages[]", img));
 
     try {
-      const res = await fetch(`${API_BASE}/api/tourism/restaurants/${id}`, {
+      const res = await fetch(buildApiUrl(`/api/tourism/restaurants/${id}`), {
         method: "POST",
         headers: { 
           "Authorization": `Bearer ${token}`,
@@ -164,7 +162,7 @@ export default function RestaurantUpdate() {
                   return (
                     <div key={i} style={{ position: "relative" }}>
                       <img 
-                        src={`${IMAGE_BASE_URL}/${cleanPath}`} 
+                        src={buildTourismAssetUrl(cleanPath)} 
                         alt="Resto" 
                         style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "8px" }}
                         onError={(e) => { e.target.src = "https://via.placeholder.com/100?text=Image+Introuvable"; }}

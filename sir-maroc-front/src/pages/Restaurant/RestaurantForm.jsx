@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/Restaurant/restaurant-form.css";
 import { parseError } from "../../utils/apiError";
-
-const API_BASE_URL = "http://localhost:8080";
+import { buildApiUrl } from "../../config/env";
 
 const fallbackVilles = [
   { id: 1, nom: "Marrakech" },
@@ -54,7 +53,7 @@ export default function RestaurantForm() {
 
     const loadVilles = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/api/tourism/villes`);
+        const response = await fetch(buildApiUrl("/api/tourism/villes"));
         if (!response.ok) {
           setVilles(fallbackVilles);
           return;
@@ -152,7 +151,7 @@ export default function RestaurantForm() {
     });
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/tourism/restaurants`, {
+      const response = await fetch(buildApiUrl("/api/tourism/restaurants"), {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

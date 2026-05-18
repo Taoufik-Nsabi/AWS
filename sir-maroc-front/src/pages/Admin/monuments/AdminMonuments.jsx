@@ -2,8 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { parseError } from "../../../utils/apiError";
 import MonumentDetail from "../../Monument/MonumentDetail";
 import "../../../styles/admin/AdminUsers.css";
-
-const API_BASE = "http://localhost:8080";
+import { buildApiUrl } from "../../../config/env";
 
 export default function AdminMonuments() {
   const [monuments, setMonuments] = useState([]);
@@ -16,7 +15,7 @@ export default function AdminMonuments() {
   useEffect(() => {
     const fetchMonuments = async () => {
       try {
-        const response = await fetch(`${API_BASE}/api/tourism/monuments`);
+        const response = await fetch(buildApiUrl("/api/tourism/monuments"));
 
         if (!response.ok) {
           throw new Error(await parseError(response));

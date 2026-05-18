@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/Activite/ActiviteForm.css"; 
+import { buildApiUrl } from "../../config/env";
 
 export default function ActiviteForm() {
   const navigate = useNavigate();
@@ -115,10 +116,8 @@ export default function ActiviteForm() {
       submitData.append('images[]', image);
     });
 
-    const GATEWAY_URL = "http://localhost:8080/api/tourism/activites";
-
     try {
-      const response = await fetch(GATEWAY_URL, {
+      const response = await fetch(buildApiUrl("/api/tourism/activites"), {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
         body: submitData

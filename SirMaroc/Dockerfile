@@ -46,14 +46,17 @@ RUN sha256sum composer.lock | awk '{print $1}' > /opt/vendor-cache/.composer.loc
 
 # Copy the rest of the project
 COPY . .
+COPY docker/entrypoint.sh /usr/local/bin/symfony-entrypoint
 
 RUN mkdir -p /var/www/html/var/cache/prod/vich_uploader \
     /var/www/html/var/log \
     /var/www/html/public/uploads \
     && chown -R www-data:www-data /var/www/html
 
-RUN chown -R www-data:www-data /var/www/html
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod +x /usr/local/bin/symfony-entrypoint
 
 EXPOSE 9000
 
+ENTRYPOINT ["symfony-entrypoint"]
 CMD ["php-fpm"]

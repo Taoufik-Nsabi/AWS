@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { parseError } from "../../../utils/apiError";
 import "../../../styles/admin/AdminUsers.css";
-
-const API_BASE = "http://localhost:8080";
+import { buildApiUrl } from "../../../config/env";
 
 function getUserInitials(user) {
   return `${user.firstName?.[0] || ""}${user.lastName?.[0] || ""}`.toUpperCase();
@@ -20,7 +19,7 @@ export default function UsersList() {
     const fetchUsers = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch(`${API_BASE}/api/users`, {
+        const response = await fetch(buildApiUrl("/api/users"), {
           headers: {
             Authorization: `Bearer ${token}`,
           },

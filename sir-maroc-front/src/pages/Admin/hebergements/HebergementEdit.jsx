@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../../styles/admin/AdminForms.css";
-
-const API_BASE = "http://localhost:8080";
-const IMAGE_BASE_URL = "http://localhost:8081";
+import { buildApiUrl, buildTourismAssetUrl } from "../../../config/env";
 
 const VILLES_MAROC = [
   { id: 1, nom: "Marrakech" },
@@ -32,7 +30,7 @@ function buildImageUrl(imagePath) {
   if (!imagePath) return "";
   if (/^https?:\/\//i.test(imagePath)) return imagePath;
   const cleanPath = imagePath.startsWith("/") ? imagePath : `/${imagePath}`;
-  return `${IMAGE_BASE_URL}${cleanPath}`;
+  return buildTourismAssetUrl(cleanPath);
 }
 
 export default function HebergementEdit() {
@@ -60,7 +58,7 @@ export default function HebergementEdit() {
     const loadHebergement = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch(`${API_BASE}/api/tourism/hebergements/${id}`, {
+        const response = await fetch(buildApiUrl(`/api/tourism/hebergements/${id}`), {
           headers: {
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
@@ -143,7 +141,7 @@ export default function HebergementEdit() {
       newImages.forEach((file) => payload.append("images[]", file));
       imagesToDelete.forEach((imagePath) => payload.append("deletedImages[]", imagePath));
 
-      const response = await fetch(`${API_BASE}/api/tourism/hebergements/${id}`, {
+      const response = await fetch(buildApiUrl(`/api/tourism/hebergements/${id}`), {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

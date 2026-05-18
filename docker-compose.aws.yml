@@ -1,0 +1,247 @@
+services:
+  edge:
+    image: nginx:1.27-alpine
+    container_name: sirmaroc-edge
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./deploy/aws/edge-nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - front
+      - api-gateway
+      - symfony-web
+      - auth-service
+    networks:
+      - sirmaroc-net
+
+  front:
+    build:
+      context: ./sir-maroc-front
+      dockerfile: Dockerfile.prod
+      args:
+        VITE_API_BASE_URL: ${PUBLIC_APP_URL}
+        VITE_TOURISM_ASSET_BASE_URL: ${PUBLIC_APP_URL}
+    container_name: sirmaroc-front
+    restart: unless-stopped
+    networks:
+      - sirmaroc-net
+
+  api-gateway:
+    build:
+      context: ./Gateway
+      dockerfile: Dockerfile
+    container_name: sirmaroc-api-gateway
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionStrings__Redis: redis:6379
+      Jwt__Issuer: UserService.Api
+      Jwt__Audience: UserService.Client
+      Jwt__SecretKey: ${JWT_SECRET_KEY}
+      Services__Auth__BaseUrl: http://auth-service:8080
+      Services__Tourism__BaseUrl: http://symfony-web:80
+      Services__Python__BaseUrl: http://python-service:8000
+      SERPAPI_API_KEY: ${SERPAPI_API_KEY}
+      Cors__AllowedOrigins__0: ${PUBLIC_APP_URL}
+      ReverseProxy__Routes__matches-route__Transforms__1__Set: ${GATEWAY_SHARED_SECRET}
+      ReverseProxy__Routes__community-upload-route__Transforms__1__Set: ${GATEWAY_SHARED_SECRET}
+      ReverseProxy__Routes__community-route__Transforms__1__Set: ${GATEWAY_SHARED_SECRET}
+    depends_on:
+      - redis
+      - auth-service
+      - symfony-web
+      - python-service
+      - matches-service
+      - community-service
+    networks:
+      - sirmaroc-net
+
+  auth-service:
+    build:
+      context: ./SirMarocUser
+      dockerfile: UserService.Api/Dockerfile
+    container_name: sirmaroc-auth-service
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionStrings__DefaultConnection: Server=sqlserver,1433;Database=UserServiceDb;User Id=sa;Password=${MSSQL_SA_PASSWORD};TrustServerCertificate=True
+      Jwt__Issuer: UserService.Api
+      Jwt__Audience: UserService.Client
+      Jwt__Key: ${JWT_SECRET_KEY}
+      BACKEND_URL: ${PUBLIC_APP_URL}
+      FRONTEND_URL: ${PUBLIC_APP_URL}
+      PublicBaseUrl: ${PUBLIC_APP_URL}
+      GoogleAuth__ClientId: ${GOOGLE_AUTH_CLIENT_ID}
+      GoogleAuth__ClientSecret: ${GOOGLE_AUTH_CLIENT_SECRET}
+      SendGrid__ApiKey: ${SENDGRID_API_KEY}
+      SendGrid__FromEmail: ${SENDGRID_FROM_EMAIL}
+      SendGrid__FromName: ${SENDGRID_FROM_NAME}
+    volumes:
+      - auth_uploads:/app/wwwroot/uploads
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      sqlserver-init:
+        condition: service_completed_successfully
+    networks:
+      - sirmaroc-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: sirmaroc-redis
+    restart: unless-stopped
+    networks:
+      - sirmaroc-net
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sirmaroc-sqlserver
+    restart: unless-stopped
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$${SA_PASSWORD}\" -Q \"SELECT 1\" -C || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - sirmaroc-net
+
+  sqlserver-init:
+    image: mcr.microsoft.com/mssql-tools
+    container_name: sirmaroc-sqlserver-init
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    entrypoint:
+      - /bin/sh
+      - -c
+      - >
+        /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P "${MSSQL_SA_PASSWORD}" -Q "IF DB_ID('UserServiceDb') IS NULL CREATE DATABASE UserServiceDb; IF DB_ID('sirmaroc_matchs') IS NULL CREATE DATABASE sirmaroc_matchs; IF DB_ID('sirmaroc_community') IS NULL CREATE DATABASE sirmaroc_community; IF DB_ID('symfony_db') IS NULL CREATE DATABASE symfony_db;"
+    restart: "no"
+    networks:
+      - sirmaroc-net
+
+  symfony-app:
+    build:
+      context: ./SirMaroc
+      dockerfile: Dockerfile
+    container_name: sirmaroc-symfony-app
+    restart: unless-stopped
+    environment:
+      APP_ENV: prod
+      APP_DEBUG: 0
+      DATABASE_URL: sqlsrv://sa:${MSSQL_SA_PASSWORD}@sqlserver:1433/symfony_db
+    volumes:
+      - symfony_uploads:/var/www/html/public/uploads
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      sqlserver-init:
+        condition: service_completed_successfully
+    networks:
+      - sirmaroc-net
+
+  symfony-web:
+    image: nginx:latest
+    container_name: sirmaroc-symfony-web
+    restart: unless-stopped
+    volumes:
+      - ./SirMaroc/public:/var/www/html/public:ro
+      - ./SirMaroc/docker/nginx/conf.d:/etc/nginx/conf.d:ro
+      - symfony_uploads:/var/www/html/public/uploads
+    depends_on:
+      - symfony-app
+    networks:
+      - sirmaroc-net
+
+  python-service:
+    build:
+      context: ./Sirmaroc_python
+      dockerfile: Dockerfile
+    container_name: sirmaroc-python-service
+    restart: unless-stopped
+    environment:
+      PYTHONUNBUFFERED: "1"
+      CORS_ALLOWED_ORIGINS: ${PUBLIC_APP_URL}
+    networks:
+      - sirmaroc-net
+
+  matches-service:
+    build:
+      context: ./SirMarocMatch
+      dockerfile: Dockerfile
+    container_name: sirmaroc-matches-service
+    restart: unless-stopped
+    env_file:
+      - ./SirMarocMatch/.env.example
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SERVER_PORT: 8080
+      DB_URL: jdbc:sqlserver://sqlserver:1433;databaseName=sirmaroc_matchs;encrypt=true;trustServerCertificate=true
+      DB_USERNAME: sa
+      DB_PASSWORD: ${MSSQL_SA_PASSWORD}
+      GATEWAY_TRUST_ENABLED: "true"
+      GATEWAY_SHARED_SECRET: ${GATEWAY_SHARED_SECRET}
+      GATEWAY_HEADER_NAME: X-Gateway-Token
+      GATEWAY_USER_HEADER_NAME: X-Authenticated-User
+      GATEWAY_ROLES_HEADER_NAME: X-Authenticated-Roles
+      CORS_ALLOWED_ORIGINS: ${PUBLIC_APP_URL}
+      JWT_ISSUER: UserService.Api
+      JWT_AUDIENCE: UserService.Client
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      sqlserver-init:
+        condition: service_completed_successfully
+    networks:
+      - sirmaroc-net
+
+  community-service:
+    build:
+      context: ./Communaut-
+      dockerfile: Dockerfile
+    container_name: sirmaroc-community-service
+    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SERVER_PORT: 8080
+      DB_URL: jdbc:sqlserver://sqlserver:1433;databaseName=sirmaroc_community;encrypt=true;trustServerCertificate=true
+      DB_USERNAME: sa
+      DB_PASSWORD: ${MSSQL_SA_PASSWORD}
+      GATEWAY_TRUST_ENABLED: "true"
+      GATEWAY_SHARED_SECRET: ${GATEWAY_SHARED_SECRET}
+      GATEWAY_HEADER_NAME: X-Gateway-Token
+      GATEWAY_USER_HEADER_NAME: X-Authenticated-User
+      GATEWAY_ROLES_HEADER_NAME: X-Authenticated-Roles
+      JWT_ISSUER: UserService.Api
+      JWT_AUDIENCE: UserService.Client
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      CORS_ALLOWED_ORIGINS: ${PUBLIC_APP_URL}
+      CHAT_UPLOAD_DIR: /home/spring/uploads/chat
+      CHAT_UPLOAD_PUBLIC_BASE_PATH: /api/community/api/v1/chat/uploads
+    volumes:
+      - community_chat_uploads:/home/spring/uploads
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      sqlserver-init:
+        condition: service_completed_successfully
+    networks:
+      - sirmaroc-net
+
+volumes:
+  auth_uploads:
+  community_chat_uploads:
+  sqlserver_data:
+  symfony_uploads:
+
+networks:
+  sirmaroc-net:
+    driver: bridge

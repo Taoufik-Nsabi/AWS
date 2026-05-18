@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import RestaurantDetail from "./RestaurantDetail";
 import "../../styles/Restaurant/RestaurantPage.css";
+import { buildApiUrl, buildTourismAssetUrl } from "../../config/env";
 
 // Assets par défaut
 import heroImage from "../../assets/images/res.jpeg";
@@ -9,9 +10,7 @@ import marocainFood from "../../assets/images/tajin.jpg";
 import italienFood from "../../assets/images/pizza.jpg";
 import asiatiqueFood from "../../assets/images/sushi.webp";
 
-// 1. CONFIGURATION DU BACKEND
-const API_BASE_URL = "http://localhost:8081"; 
-const GATEWAY_URL = "http://localhost:8080/api/tourism/restaurants";
+const GATEWAY_URL = buildApiUrl("/api/tourism/restaurants");
 
 // Liste des villes (Cohérence avec Hebergement)
 const VILLES_LISTE = [
@@ -215,7 +214,7 @@ export default function RestaurantPage() {
                           src={restaurant.images && restaurant.images.length > 0 
                             ? (restaurant.images[0].startsWith('http') 
                                 ? restaurant.images[0] 
-                                : `${API_BASE_URL}/${restaurant.images[0]}`) 
+                                : buildTourismAssetUrl(restaurant.images[0])) 
                             : heroImage} 
                           alt={restaurant.nom}
                           onError={(e) => { e.target.src = heroImage; }}

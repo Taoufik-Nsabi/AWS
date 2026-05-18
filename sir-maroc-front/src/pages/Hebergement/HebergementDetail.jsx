@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AddAvis from '../../components/AddAvis'; 
 import AvisList from '../../components/AvisList';
 import "../../styles/Hebergement/HebergementDetail.css";
-
-// Configuration du backend pour les images
-const API_BASE_URL = "http://localhost:8081";
+import { buildTourismAssetUrl } from "../../config/env";
 
 export default function HebergementDetail({ hebergement, onClose }) {
   const [loading, setLoading] = useState(true);
@@ -29,7 +27,7 @@ export default function HebergementDetail({ hebergement, onClose }) {
   const getImageUrl = () => {
     if (hebergement.images && hebergement.images.length > 0) {
       const firstImage = hebergement.images[0];
-      return firstImage.startsWith('http') ? firstImage : `${API_BASE_URL}/${firstImage}`;
+      return firstImage.startsWith('http') ? firstImage : buildTourismAssetUrl(firstImage);
     }
     return "/assets/images/hotel.jpg"; 
   };

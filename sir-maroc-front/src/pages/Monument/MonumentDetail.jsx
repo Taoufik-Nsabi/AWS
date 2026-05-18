@@ -1,14 +1,13 @@
 import React from "react";
 import "../../styles/Monument/MonumentDetail.css";
-
-const API_BASE_URL = "http://localhost:8081";
+import { buildTourismAssetUrl } from "../../config/env";
 
 export default function MonumentDetail({ monument, onClose }) {
   if (!monument) return null;
 
   const imageUrl = monument.image && monument.image.startsWith("http")
     ? monument.image
-    : `${API_BASE_URL}/${monument.image}`;
+    : buildTourismAssetUrl(monument.image);
 
   return (
     <div className="hebergement-detail-overlay" onClick={onClose}>

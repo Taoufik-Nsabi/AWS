@@ -3,8 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { parseError } from "../../../utils/apiError";
 import "../../../styles/admin/AdminUsers.css";
 import { COUNTRIES } from "../../../constants/countries";
-
-const API_BASE = "http://localhost:8080";
+import { buildApiUrl } from "../../../config/env";
 
 export default function UserEdit() {
   const { id } = useParams();
@@ -28,7 +27,7 @@ export default function UserEdit() {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch(`${API_BASE}/api/users/${id}`, {
+        const response = await fetch(buildApiUrl(`/api/users/${id}`), {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -90,7 +89,7 @@ export default function UserEdit() {
         payload.append("profileImageFile", form.profileImageFile);
       }
 
-      const response = await fetch(`${API_BASE}/api/users/${id}`, {
+      const response = await fetch(buildApiUrl(`/api/users/${id}`), {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,

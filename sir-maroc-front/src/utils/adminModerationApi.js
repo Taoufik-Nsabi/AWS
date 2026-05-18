@@ -1,6 +1,5 @@
 import { parseError } from "./apiError";
-
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+import { API_BASE_URL } from "../config/env";
 
 function getToken() {
   return localStorage.getItem("token");
@@ -18,7 +17,7 @@ export async function fetchAdminLieux(type, status) {
   if (type) params.set("type", type);
   if (status) params.set("status", status);
 
-  const response = await fetch(`${API_BASE}/api/tourism/lieux/admin?${params.toString()}`, {
+  const response = await fetch(`${API_BASE_URL}/api/tourism/lieux/admin?${params.toString()}`, {
     headers: buildHeaders(),
   });
 
@@ -31,7 +30,7 @@ export async function fetchAdminLieux(type, status) {
 }
 
 export async function fetchLieuById(type, id) {
-  const response = await fetch(`${API_BASE}/api/tourism/${type}/${id}`, {
+  const response = await fetch(`${API_BASE_URL}/api/tourism/${type}/${id}`, {
     headers: buildHeaders(),
   });
 
@@ -43,7 +42,7 @@ export async function fetchLieuById(type, id) {
 }
 
 export async function updateLieuStatus(type, id, status) {
-  const response = await fetch(`${API_BASE}/api/tourism/${type}/${id}/status`, {
+  const response = await fetch(`${API_BASE_URL}/api/tourism/${type}/${id}/status`, {
     method: "PUT",
     headers: buildHeaders({
       "Content-Type": "application/json",

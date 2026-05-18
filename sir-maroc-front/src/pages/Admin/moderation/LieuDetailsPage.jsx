@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchLieuById, updateLieuStatus } from "../../../utils/adminModerationApi";
 import "../../../styles/admin/AdminDetails.css";
+import { buildTourismAssetUrl } from "../../../config/env";
 
 const STATUS_LABELS = {
   en_attente: "En attente",
@@ -14,9 +15,6 @@ const STATUS_ROUTES = {
   approuve: "approved",
   rejete: "rejected",
 };
-
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
-const SYMFONY_PUBLIC_BASE = API_BASE.replace(/:8080$/, ":8081").replace(/\/api$/, "");
 
 function formatPrice(item) {
   if (item.prix) return `${item.prix} DH / nuit`;
@@ -48,8 +46,7 @@ function normalizeImageUrl(image) {
     return rawValue;
   }
 
-  const normalizedPath = rawValue.startsWith("/") ? rawValue : `/${rawValue}`;
-  return `${SYMFONY_PUBLIC_BASE}${normalizedPath}`;
+  return buildTourismAssetUrl(rawValue);
 }
 
 export default function LieuDetailsPage({ type, title, editPath = null }) {

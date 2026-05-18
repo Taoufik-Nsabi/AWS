@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../../styles/Profile/LieuUpdate.css";
-
-const API_BASE = "http://localhost:8080";
-const IMAGE_BASE_URL = "http://localhost:8081";
+import { buildApiUrl, buildTourismAssetUrl } from "../../config/env";
 
 export default function ActiviteUpdate() {
   const { id } = useParams();
@@ -32,7 +30,7 @@ export default function ActiviteUpdate() {
     const loadActivite = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`${API_BASE}/api/tourism/activites/${id}`, {
+        const res = await fetch(buildApiUrl(`/api/tourism/activites/${id}`), {
           headers: { 
             "Authorization": `Bearer ${token}`,
             "Accept": "application/json" 
@@ -92,7 +90,7 @@ export default function ActiviteUpdate() {
     imagesToDelete.forEach(img => fd.append("deletedImages[]", img));
 
     try {
-      const res = await fetch(`${API_BASE}/api/tourism/activites/${id}`, {
+      const res = await fetch(buildApiUrl(`/api/tourism/activites/${id}`), {
         method: "POST",
         headers: { 
             "Authorization": `Bearer ${token}`, 
@@ -168,7 +166,7 @@ export default function ActiviteUpdate() {
     <div className="image-preview-list" style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "10px" }}>
       {existingImages.map((img, i) => {
         const cleanPath = img.startsWith('/') ? img.substring(1) : img;
-        const finalUrl = `${IMAGE_BASE_URL}/${cleanPath}`;
+        const finalUrl = buildTourismAssetUrl(cleanPath);
 
         return (
           <div key={i} style={{ position: "relative" }}>

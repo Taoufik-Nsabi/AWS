@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../../styles/Profile/LieuDetails.css";
-
-// Backend images server (port 8081 = images)
-const IMAGE_BASE_URL = "http://localhost:8081";
-const API_BASE = "http://localhost:8080";
+import { buildApiUrl, buildTourismAssetUrl } from "../../config/env";
 
 export default function LieuDetails() {
   const { id } = useParams();
@@ -20,7 +17,7 @@ export default function LieuDetails() {
       try {
         const token = localStorage.getItem("token");
 
-        const res = await fetch(`${API_BASE}/api/tourism/lieux/${id}`, {
+        const res = await fetch(buildApiUrl(`/api/tourism/lieux/${id}`), {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -49,7 +46,7 @@ export default function LieuDetails() {
 
     if (img.startsWith("http")) return img;
 
-    return `${IMAGE_BASE_URL}/${img}`;
+    return buildTourismAssetUrl(img);
   };
 
 

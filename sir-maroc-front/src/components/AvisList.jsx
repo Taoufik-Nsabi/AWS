@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { buildApiUrl } from "../config/env";
 
 export default function AvisList({ lieuId, refreshTrigger }) {
     const [avis, setAvis] = useState([]);
@@ -9,7 +10,7 @@ export default function AvisList({ lieuId, refreshTrigger }) {
         try {
             const token = localStorage.getItem('token'); 
 
-            const response = await fetch(`http://localhost:8080/api/tourism/avis/lieu/${lieuId}`, {
+            const response = await fetch(buildApiUrl(`/api/tourism/avis/lieu/${lieuId}`), {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,

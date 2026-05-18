@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { parseError } from "../../../utils/apiError";
 import "../../../styles/admin/AdminUsers.css";
-
-const API_BASE = "http://localhost:8080";
+import { buildApiUrl } from "../../../config/env";
 
 export default function UserAnnonces() {
   const { id } = useParams();
@@ -15,7 +14,7 @@ export default function UserAnnonces() {
     const fetchLieux = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch(`${API_BASE}/api/tourism/lieux/user/${id}`, {
+        const response = await fetch(buildApiUrl(`/api/tourism/lieux/user/${id}`), {
           headers: {
             Authorization: `Bearer ${token}`,
           },

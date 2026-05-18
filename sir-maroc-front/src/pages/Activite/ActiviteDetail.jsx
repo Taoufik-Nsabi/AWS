@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AddAvis from '../../components/AddAvis'; 
 import AvisList from '../../components/AvisList'; // Correction : Import manquant
 import "../../styles/Activite/ActiviteDetail.css";
-
-const API_BASE_URL = "http://localhost:8080"; 
+import { buildTourismAssetUrl } from "../../config/env";
 
 export default function ActiviteDetail({ activite, onClose }) {
   const [loading, setLoading] = useState(true);
@@ -29,7 +28,7 @@ export default function ActiviteDetail({ activite, onClose }) {
   const getImageUrl = () => {
     if (activite.images && activite.images.length > 0) {
       const firstImage = activite.images[0];
-      return firstImage.startsWith('http') ? firstImage : `${API_BASE_URL}/${firstImage}`;
+      return firstImage.startsWith('http') ? firstImage : buildTourismAssetUrl(firstImage);
     }
     return "/assets/images/activite-default.jpg"; 
   };

@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/Hebergement/HebergementForm.css";
 import { parseError } from "../../utils/apiError";
-
-const API_BASE_URL = "http://localhost:8080";
+import { buildApiUrl } from "../../config/env";
 
 export default function HebergementForm() {
   const navigate = useNavigate();
@@ -43,7 +42,7 @@ export default function HebergementForm() {
     const loadVilles = async () => {
       try {
         // On charge les vraies villes depuis l'API.
-        const response = await fetch(`${API_BASE_URL}/api/tourism/villes`);
+        const response = await fetch(buildApiUrl("/api/tourism/villes"));
         if (!response.ok) return;
 
         const data = await response.json();
@@ -137,7 +136,7 @@ export default function HebergementForm() {
     });
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/tourism/hebergements`, {
+      const response = await fetch(buildApiUrl("/api/tourism/hebergements"), {
         method: "POST",
         headers: {
 

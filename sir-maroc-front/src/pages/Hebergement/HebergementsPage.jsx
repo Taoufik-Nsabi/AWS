@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import HebergementDetail from "./HebergementDetail";
 import "../../styles/Hebergement/HebergementPage.css";
+import { buildApiUrl, buildTourismAssetUrl } from "../../config/env";
 
 // Assets par défaut
 import heroImage from "../../assets/images/hotel.jpg";
@@ -9,9 +10,7 @@ import riadImage from "../../assets/images/hotel.jpg";
 import villaImage from "../../assets/images/hotel.jpg";
 import appartementImage from "../../assets/images/Mosquer.jpg";
 
-// 1. CONFIGURATION DU BACKEND
-const API_BASE_URL = "http://localhost:8081"; 
-const GATEWAY_URL = "http://localhost:8080/api/tourism/hebergements";
+const GATEWAY_URL = buildApiUrl("/api/tourism/hebergements");
 
 // Liste des villes pour le sélecteur
 const VILLES_LISTE = [
@@ -216,7 +215,7 @@ export default function HebergementPage() {
                             item.images && item.images.length > 0 
                               ? (item.images[0].startsWith('http') 
                                   ? item.images[0] 
-                                  : `${API_BASE_URL}/${item.images[0]}`) 
+                                  : buildTourismAssetUrl(item.images[0])) 
                               : heroImage
                           } 
                           alt={item.nom} 

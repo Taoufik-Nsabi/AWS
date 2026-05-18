@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import "../../styles/Matchs/MatchsPage.css";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+import { API_BASE_URL } from "../../config/env";
 
 function formatDate(value) {
   return new Date(value).toISOString().slice(0, 10);

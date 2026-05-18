@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/Profile/MesLieux.css";
-
-const API_BASE = "http://localhost:8080";
+import { buildApiUrl } from "../../config/env";
 
 export default function MesLieux() {
   const navigate = useNavigate();
@@ -20,7 +19,7 @@ export default function MesLieux() {
           return;
         }
 
-        const res = await fetch(`${API_BASE}/api/tourism/lieux`, {
+        const res = await fetch(buildApiUrl("/api/tourism/lieux"), {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -61,7 +60,7 @@ export default function MesLieux() {
       const token = localStorage.getItem("token");
       if (!token) { navigate("/login"); return; }
 
-      const res = await fetch(`${API_BASE}/api/tourism/lieux/${id}`, {
+      const res = await fetch(buildApiUrl(`/api/tourism/lieux/${id}`), {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

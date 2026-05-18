@@ -3,7 +3,7 @@ import "../../styles/auth/login.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { parseError } from "../../utils/apiError";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+import { API_BASE_URL } from "../../config/env";
 const GOOGLE_CLIENT_ID =
   import.meta.env.VITE_GOOGLE_CLIENT_ID ||
   "820144815697-14imr6pm2vrurb2idctvoperfdvrgti0.apps.googleusercontent.com";

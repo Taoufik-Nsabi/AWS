@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../styles/AddAvis.css";
+import { buildApiUrl } from "../config/env";
 
 export default function AddAvis({ lieuId, onAvisAdded }) {
     const [showForm, setShowForm] = useState(false);
@@ -40,7 +41,7 @@ export default function AddAvis({ lieuId, onAvisAdded }) {
         };
 
         try {
-            const response = await fetch("http://localhost:8080/api/tourism/avis", {
+            const response = await fetch(buildApiUrl("/api/tourism/avis"), {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

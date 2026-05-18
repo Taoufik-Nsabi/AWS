@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../../styles/Profile/LieuUpdate.css";
-
-// Configuration des ports
-const API_BASE = "http://localhost:8080";
-const IMAGE_BASE_URL = "http://localhost:8081";
+import { buildApiUrl, buildTourismAssetUrl } from "../../config/env";
 
 // Liste des villes correspondant à vos fixtures PHP
 const VILLES_MAROC = [
@@ -50,7 +47,7 @@ export default function HebergementUpdate() {
           return;
         }
 
-        const res = await fetch(`${API_BASE}/api/tourism/hebergements/${id}`, {
+        const res = await fetch(buildApiUrl(`/api/tourism/hebergements/${id}`), {
           headers: { 
             "Authorization": `Bearer ${token}`,
             "Accept": "application/json"
@@ -102,7 +99,7 @@ export default function HebergementUpdate() {
 
   const getImageUrl = (imagePath) => {
     if (!imagePath) return "";
-    return imagePath.startsWith('http') ? imagePath : `${IMAGE_BASE_URL}/${imagePath}`;
+    return imagePath.startsWith('http') ? imagePath : buildTourismAssetUrl(imagePath);
   };
 
   // 3. Envoi du formulaire (POST avec FormData)
@@ -129,7 +126,7 @@ export default function HebergementUpdate() {
     });
 
     try {
-      const res = await fetch(`${API_BASE}/api/tourism/hebergements/${id}`, {
+      const res = await fetch(buildApiUrl(`/api/tourism/hebergements/${id}`), {
         method: "POST", 
        headers: { 
   "Authorization": `Bearer ${token}`, // <-- ESPACE ICI

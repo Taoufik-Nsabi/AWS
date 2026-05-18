@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 // 1. IMPORTATION DU COMPOSANT DE DÉTAIL
 import ActiviteDetail from "./ActiviteDetail"; 
 import "../../styles/Activite/ActivitePage.css";
+import { buildApiUrl, buildTourismAssetUrl } from "../../config/env";
 
 import heroActivite from "../../assets/images/sports-tools.jpg"; 
 
-const API_BASE_URL = "http://localhost:8081"; 
-const GATEWAY_URL = "http://localhost:8080/api/tourism/activites";
+const GATEWAY_URL = buildApiUrl("/api/tourism/activites");
 
 const VILLES_LISTE = [
   { id: 1, nom: "Marrakech" }, { id: 2, nom: "Fès" }, { id: 3, nom: "Casablanca" },
@@ -135,7 +135,7 @@ export default function ActivitePage() {
                     <div className="card-front-activite">
                       <div className="card-image-luxury-activite">
                         <img 
-                          src={item.images && item.images.length > 0 ? `${API_BASE_URL}/${item.images[0]}` : heroActivite} 
+                          src={item.images && item.images.length > 0 ? buildTourismAssetUrl(item.images[0]) : heroActivite} 
                           alt={item.nom} 
                           onError={(e) => { e.target.src = heroActivite; }}
                         />

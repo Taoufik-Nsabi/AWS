@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../../styles/auth/login.css";
 import { parseError } from "../../utils/apiError";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+import { API_BASE_URL } from "../../config/env";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");

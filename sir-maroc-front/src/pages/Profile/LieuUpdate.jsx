@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../../styles/Profile/LieuUpdate.css";
+import { buildApiUrl } from "../../config/env";
 
 export default function LieuUpdate() {
   const { id } = useParams();
@@ -64,7 +65,7 @@ export default function LieuUpdate() {
     try {
       // NOTE : Symfony préfère souvent un POST pour les formulaires avec fichiers, 
       // ou un PUT si tu envoies du JSON pur.
-      const response = await fetch(`http://localhost:8080/api/tourism/restaurants/${id}`, {
+      const response = await fetch(buildApiUrl(`/api/tourism/restaurants/${id}`), {
         method: 'POST', // Ton controller PHP utilise #[Route('/{id}', methods: ['POST'])] pour l'update
         headers: { 'Authorization': `Bearer ${token}` },
         body: updateData

@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { parseError } from "../../utils/apiError";
 import { fetchAdminLieux } from "../../utils/adminModerationApi";
 import "../../styles/admin/DashboardHome.css";
-
-const API_BASE = "http://localhost:8080";
+import { buildApiUrl } from "../../config/env";
 
 export default function DashboardHome() {
   const navigate = useNavigate();
@@ -38,7 +37,7 @@ export default function DashboardHome() {
         const token = localStorage.getItem("token");
 
         const results = await Promise.allSettled([
-          fetch(`${API_BASE}/api/users`, {
+          fetch(buildApiUrl("/api/users"), {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -54,7 +53,7 @@ export default function DashboardHome() {
             const data = await response.json();
             return Array.isArray(data) ? data : [];
           }),
-          fetch(`${API_BASE}/api/tourism/monuments`).then(async (response) => {
+          fetch(buildApiUrl("/api/tourism/monuments")).then(async (response) => {
             if (!response.ok) {
               throw new Error(await parseError(response));
             }

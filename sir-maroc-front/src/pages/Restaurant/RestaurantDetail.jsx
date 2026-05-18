@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import AddAvis from '../../components/AddAvis';
 import AvisList from '../../components/AvisList';
 import "../../styles/Restaurant/RestaurantDetail.css";
+import { buildTourismAssetUrl } from "../../config/env";
 
 // Configuration pour les images stockées sur le serveur
-const API_BASE_URL = "http://localhost:8081";
-
 export default function RestaurantDetail({ restaurant, onClose }) {
   const [loading, setLoading] = useState(true);
   
@@ -33,7 +32,7 @@ export default function RestaurantDetail({ restaurant, onClose }) {
     if (restaurant.image) {
       return restaurant.image.startsWith('http') 
         ? restaurant.image 
-        : `${API_BASE_URL}/${restaurant.image}`;
+        : buildTourismAssetUrl(restaurant.image);
     }
     return "/assets/images/default-restaurant.jpg"; 
   };

@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import MonumentDetail from "./MonumentDetail";
 import "../../styles/Monument/MonumentPage.css";
+import { buildApiUrl, buildTourismAssetUrl } from "../../config/env";
 
 // Assets par défaut
 import heroImageDefault from "../../assets/images/palaisbahia.jpg";
 
 // 1. CONFIGURATION DU BACKEND
-const API_BASE_URL = "http://localhost:8081"; 
-const GATEWAY_URL = "http://localhost:8080/api/tourism/monuments"; // Ton point d'accès Gateway
+const GATEWAY_URL = buildApiUrl("/api/tourism/monuments");
 
 // Liste des villes (Identique aux autres pages pour la cohérence)
 const VILLES_LISTE = [
@@ -31,7 +31,7 @@ export default function MonumentPage() {
     const fetchMonuments = async () => {
       try {
         setLoading(true);
-        const response = await fetch(GATEWAY_URL);
+        const response = await fetch(buildApiUrl("/api/tourism/monuments"));
         if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`);
         const data = await response.json();
         setMonuments(data);
@@ -159,7 +159,7 @@ export default function MonumentPage() {
                         <img 
                           src={monument.image && monument.image.startsWith('http') 
                             ? monument.image 
-                            : `${API_BASE_URL}/${monument.image}`} 
+                            : buildTourismAssetUrl(monument.image)} 
                           alt={monument.nom}
                           onError={(e) => { e.target.src = heroImageDefault; }}
                         />
