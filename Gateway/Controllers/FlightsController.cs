@@ -20,12 +20,6 @@ public class FlightsController : ControllerBase
     [HttpGet("search")]
     public async Task<IActionResult> Search([FromQuery] string departure, [FromQuery] string arrival, [FromQuery] string date)
     {
-        var apiKey = _configuration["SerpApi:ApiKey"] ?? _configuration["SERPAPI_API_KEY"];
-        if (string.IsNullOrWhiteSpace(apiKey))
-        {
-            return StatusCode(500, new { message = "SERPAPI_API_KEY is not configured on gateway." });
-        }
-
         if (string.IsNullOrWhiteSpace(departure) || string.IsNullOrWhiteSpace(arrival))
         {
             return BadRequest(new { message = "departure and arrival are required." });
@@ -35,6 +29,17 @@ public class FlightsController : ControllerBase
         if (!DateOnly.TryParse(date, out _))
         {
             outboundDate = DateOnly.FromDateTime(DateTime.UtcNow).ToString("yyyy-MM-dd");
+        }
+
+        var apiKey = _configuration["SerpApi:ApiKey"] ?? _configuration["SERPAPI_API_KEY"];
+        if (string.IsNullOrWhiteSpace(apiKey))
+        {
+            return Ok(new
+            {
+                best_flights = BuildDemoFlights(departure, arrival, outboundDate),
+                is_demo = true,
+                message = "Resultats de demonstration retournes car SERPAPI_API_KEY n'est pas configuree."
+            });
         }
 
         var query = new Dictionary<string, string?>
@@ -66,5 +71,63 @@ public class FlightsController : ControllerBase
         }
 
         return Content(payload, "application/json");
+    }
+
+    private static object[] BuildDemoFlights(string departure, string arrival, string outboundDate)
+    {
+        var travelDate = DateOnly.TryParse(outboundDate, out var parsedDate)
+            ? parsedDate
+            : DateOnly.FromDateTime(DateTime.UtcNow);
+
+        return new object[]
+        {
+            BuildDemoFlight("Royal Air Maroc", departure, arrival, travelDate, "08:10", "11:25", "3h 15m", "1,950 MAD", 0, 812),
+            BuildDemoFlight("Air Arabia Maroc", departure, arrival, travelDate, "12:40", "16:30", "3h 50m", "1,480 MAD", 1, 214),
+            BuildDemoFlight("Transavia", departure, arrival, travelDate, "18:25", "22:05", "3h 40m", "1,620 MAD", 0, 557),
+        };
+    }
+
+    private static object BuildDemoFlight(
+        string airline,
+        string departure,
+        string arrival,
+        DateOnly travelDate,
+        string departureTime,
+        string arrivalTime,
+        string duration,
+        string price,
+        int stops,
+        int flightNumberSuffix)
+    {
+        var normalizedDeparture = departure.Trim().ToUpperInvariant();
+        var normalizedArrival = arrival.Trim().ToUpperInvariant();
+
+        return new
+        {
+            airline,
+            price,
+            total_duration = duration,
+            layovers = stops == 0
+                ? Array.Empty<object>()
+                : new object[] { new { airport = "ESCALE", duration = "1h 05m" } },
+            flights = new object[]
+            {
+                new
+                {
+                    airline,
+                    flight_number = $"{airline.Split(' ', StringSplitOptions.RemoveEmptyEntries)[0].ToUpperInvariant()} {flightNumberSuffix}",
+                    departure_airport = new
+                    {
+                        name = $"{normalizedDeparture} Airport",
+                        time = $"{travelDate:yyyy-MM-dd} {departureTime}"
+                    },
+                    arrival_airport = new
+                    {
+                        name = $"{normalizedArrival} Airport",
+                        time = $"{travelDate:yyyy-MM-dd} {arrivalTime}"
+                    }
+                }
+            }
+        };
     }
 }

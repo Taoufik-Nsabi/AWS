@@ -27,6 +27,10 @@ public class ExternalMatchQueryService {
                                                   LocalDate dateTo,
                                                   String status,
                                                   Integer limit) {
+        if (!apiFootballProperties.isEnabled() || !StringUtils.hasText(apiFootballProperties.getApiKey())) {
+            return List.of();
+        }
+
         JsonNode root = competitionId != null
                 ? apiFootballClient.getCompetitionMatches(competitionId, dateFrom, dateTo, status)
                 : null;

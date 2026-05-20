@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import AdminNavbar from './AdminNavbar';
 import AdminFooter from './AdminFooter';
-import "../../styles/admin/AdminLayout.css";
+import "../../styles/admin/Adminlayout.css";
 
 export default function AdminLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);

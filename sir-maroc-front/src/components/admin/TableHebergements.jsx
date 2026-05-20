@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../../styles/admin/Lieutable.css";
+import "../../styles/admin/LieuTable.css";
 
 export default function TableHebergements({
   data,

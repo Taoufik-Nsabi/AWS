@@ -195,7 +195,7 @@ function buildSocketUrl(room, token) {
     token,
   });
 
-  return `${baseUrl}/api/community/ws?${params.toString()}`;
+  return `${baseUrl}/api/community/ws/?${params.toString()}`;
 }
 
 function buildMultipartPayload(room, content, imageFile) {

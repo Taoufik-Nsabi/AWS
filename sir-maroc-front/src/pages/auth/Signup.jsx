@@ -163,23 +163,31 @@ export default function Signup() {
         return;
       }
 
-      const resendResponse = await fetch(`${API_BASE_URL}/api/auth/resend-verification`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email: form.email })
-      });
+      let signupMessage = "Compte cree. Vous pouvez maintenant vous connecter.";
 
-      if (!resendResponse.ok) {
-        const resendError = await parseError(resendResponse);
-        setError(`Compte cree, mais l'envoi de l'email de verification a echoue.\n${resendError}`);
-        return;
+      try {
+        const resendResponse = await fetch(`${API_BASE_URL}/api/auth/resend-verification`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ email: form.email })
+        });
+
+        if (resendResponse.ok) {
+          signupMessage = "Compte cree. Un email de verification a ete envoye.";
+        } else {
+          signupMessage =
+            "Compte cree. Le service email de verification est indisponible pour le moment. Vous pouvez quand meme vous connecter.";
+        }
+      } catch {
+        signupMessage =
+          "Compte cree. Le service email de verification est indisponible pour le moment. Vous pouvez quand meme vous connecter.";
       }
 
       navigate("/login", {
         state: {
-          message: "Compte cree. Un email de verification a ete envoye."
+          message: signupMessage
         }
       });
     } catch {

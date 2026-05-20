@@ -48,9 +48,6 @@ public class AuthController : ControllerBase
         if (user.IsGoogleAccount)
             return Unauthorized(new { message = "Ce compte utilise Google. Connectez-vous avec Google." });
 
-        if (!user.EmailVerified)
-            return Unauthorized(new { message = "Veuillez verifier votre email avant de vous connecter." });
-
         if (!_passwordService.VerifyPassword(user.Password!, request.Password))
             return Unauthorized(new { message = "Email ou mot de passe incorrect." });
 

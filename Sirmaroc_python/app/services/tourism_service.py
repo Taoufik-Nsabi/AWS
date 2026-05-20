@@ -3,6 +3,8 @@ from app.core.config import ORS_API_KEY
 
 
 def get_pois(lat, lon):
+    if not ORS_API_KEY:
+        return {"features": []}
 
     url = "https://api.openrouteservice.org/pois"
 
@@ -22,6 +24,8 @@ def get_pois(lat, lon):
         }
     }
 
-    res = requests.post(url, json=body, headers=headers)
-
-    return res.json()
+    try:
+        res = requests.post(url, json=body, headers=headers, timeout=15)
+        return res.json()
+    except Exception:
+        return {"features": []}

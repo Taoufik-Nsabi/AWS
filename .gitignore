@@ -25,6 +25,10 @@
 !**/.env.exemple
 !.env.aws.example
 !**/.env.aws.example
+/app/
+*.tar.gz
+*.zip
+*.7z
 **/.git-backup-single-repo/
 SirMaroc/adresse
 SirMaroc/categories

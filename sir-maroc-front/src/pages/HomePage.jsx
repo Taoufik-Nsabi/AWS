@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Contact from "./ContactPage";
 import "../styles/styles.css"; 
 import vidoHome from "../assets/videos/hebergement.mp4";
-import mosquee from "../assets/images/mosquer.jpg";
+import mosquee from "../assets/images/Mosquer.jpg";
 import Tourism from "../assets/images/Tourism1.jpeg";
 
 

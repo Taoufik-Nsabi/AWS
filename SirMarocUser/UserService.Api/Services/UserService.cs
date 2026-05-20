@@ -89,6 +89,7 @@ public class UserService : IUserService
             ProfileImageUrl = string.IsNullOrWhiteSpace(profileImageUrl) ? null : profileImageUrl,
             Password = _passwordService.HashPassword(password),
             Role = role,
+            EmailVerified = true,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow
         };
